@@ -39,14 +39,15 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
   }
 
   void input(final samping) {
-    var a = Login();
+    //var a = Login();
     var b = Daftar();
     try {
       print(' ');
       stdout.write('  MASUKKAN ANGKA PILIHAN ANDA : ');
       int milih = int.parse(stdin.readLineSync()!);
       if (milih == 1) {
-        a.cd();
+        //a.cd();
+        print('p');
       } else if (milih == 2) {
         b.regis();
       } else if (milih >= 3) {
@@ -95,7 +96,10 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
     print("$samping ${" " * 5} 1.LOGIN  ${" " * 37} $samping");
     print("$samping ${" " * 5} 2.DAFTAR  ${" " * 36} $samping");
     teks2('|');
-    garisAA();
+
+    //memanggil garis atas
+    var cn = Interface();
+    cn.garisAtas();
   }
 }
 

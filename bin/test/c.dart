@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:core';
-
-import 'nmr_atm.dart';
+import 'dart:math';
 
 void garisAA({final jk = '=', final jl = '|'}) {
   print('${jk * 22}');
@@ -15,8 +14,10 @@ void bersih() {
 
 class Daftar {
   //variable lokal class daftar
-  List<String> namaa = [];
-  List<String> noHp = [];
+  List<String> namaa = ['rafi'];
+  List<String> noHp = [
+    '089537849210',
+  ];
   var emaill = [];
   var list = [];
   var pinn = [];
@@ -52,38 +53,19 @@ class Daftar {
   }
 
   //fungsi nama yg ditambhakan jika input error
-  void fungnama() {
-    String ij = namaa[0];
-    print('Nama ${' ' * 11} : $ij');
-  }
+  void fungnama() => print('Nama ${' ' * 10} : $namaa');
 
   //fungsi nomor hp yg ditambahna jika input error
-  void fungno() {
-    String il = noHp[0];
-    print('Nomor Handphone ${' ' * 1}: $il');
-  }
+  void fungno() => print('Nomor Handphone : $noHp');
 
   //fungsi email yg ditambahkan jika input sesuatu error
-  void fungemail() {
-    String ik = emaill[0];
-    print('Email ${' ' * 11}: $ik');
-  }
+  void fungemail() => print('Email ${' ' * 10}: $emaill');
 
   //fungsi pin ditambahkan jika input error
-  void fungpin() {
-    print('PIN ${' ' * 13}: ');
-  }
+  void fungpin() => print('PIN ${' ' * 12}: ');
 
   //fungsi menunggu beberapa detik
-  Future<dynamic> funglam() async =>
-      await Future.delayed(Duration(milliseconds: 1500));
-
-  //fungsi teks pembukaan
-  void opening() {
-    print('');
-    print('  Masukan biodata nama, nomor handphone, email');
-    print('  dan PIN untuk membuat akun di BANK TENG INDONESIA');
-  }
+  Future<dynamic> funglam() async => await Future.delayed(Duration(seconds: 3));
 
   //fungsi jika input salah
   void salah(int np) {
@@ -94,7 +76,7 @@ class Daftar {
       await funglam();
       bersih();
       garisAA();
-      opening();
+      tekshalam();
       print(' ');
       ceknama();
     }
@@ -110,7 +92,7 @@ ${' ' * 17} dan berawalan 08''');
       await funglam();
       bersih();
       garisAA();
-      opening();
+      tekshalam();
       print(' ');
       fungnama();
       inputhp2();
@@ -126,7 +108,7 @@ ${' ' * 17} dan berawalan 08''');
       await funglam();
       bersih();
       garisAA();
-      opening();
+      tekshalam();
       print(' ');
       fungnama();
       fungno();
@@ -144,7 +126,7 @@ ${' ' * 17} dan berawalan 08''');
       await funglam();
       bersih();
       garisAA();
-      opening();
+      tekshalam();
       print(' ');
       fungnama();
       fungno();
@@ -155,8 +137,7 @@ ${' ' * 17} dan berawalan 08''');
     //
     bersih();
     garisAA();
-    opening();
-
+    tekshalam();
     if (np == 1) {
       slhnma();
     } else if (np == 2) {
@@ -166,6 +147,17 @@ ${' ' * 17} dan berawalan 08''');
     } else if (np == 4) {
       slhpin();
     }
+
+    /*
+    print(' ');
+    print('${' ' * 3}"Gunakan Huruf untuk mengisi nama"');
+    await funglam();
+    bersih();
+    garisAA();
+    tekshalam();
+    print(' ');
+    ceknama();
+    */
   }
 
   //fungsi input email dan verifikasi email
@@ -194,7 +186,7 @@ ${' ' * 17} dan berawalan 08''');
 
   //fungsi input dan verfikasi pin
   void pin() {
-    stdout.write('PIN ${' ' * 13}: ');
+    stdout.write('PIN ${' ' * 12}: ');
     String pinj = ' ';
     stdin.echoMode = false;
     pinj = stdin.readLineSync()!;
@@ -203,29 +195,29 @@ ${' ' * 17} dan berawalan 08''');
 
     //konfirmasi pin lagi
     void verif2() async {
-      stdout.write('Konfirmasi PIN   :');
+      stdout.write('Konfirmasi PIN  :');
       String pik = ' ';
       stdin.echoMode = false;
       pik = stdin.readLineSync()!;
       stdin.echoMode = true;
       stdout.write('\n');
       if (pik == jok(pinj)) {
-        munculnomoratm();
+        print('p');
       } else {
         bersih();
         garisAA();
-        opening();
+        tekshalam();
         print(' ');
         fungnama();
         fungno();
         fungemail();
         fungpin();
         print('');
-        print('${' ' * 17} "Pin tidak cocok"');
+        print('${' ' * 15} Pin tidak cocok');
         await funglam();
         bersih();
         garisAA();
-        opening();
+        tekshalam();
         print(' ');
         fungnama();
         fungno();
@@ -245,16 +237,32 @@ ${' ' * 17} dan berawalan 08''');
     }
   }
 
+  //fungsi teks halaman daftar
+  void tekshalam() => print('HALAMAN Daftar');
+
   //fungsi halaman daftar diawal
   void regis() async {
     print(' ');
     print('${' ' * 3}Loading...');
-    await funglam();
+    await Future.delayed(Duration(milliseconds: 1500));
+
     bersih();
     garisAA();
-    opening();
+    tekshalam();
     print(' ');
     ceknama();
+  }
+
+  //fungsi mendapatkan nomor acak
+  void dptacak() {
+    void ika() {
+      var acak = Random();
+      var acakstring = '';
+      for (var i = 0; i < 6; i++) {
+        acakstring += acak.nextInt(10).toString();
+        print(acakstring);
+      }
+    }
   }
 }
 
