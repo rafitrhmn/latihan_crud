@@ -1,6 +1,9 @@
 import 'halaman_depan.dart';
+import 'Daftar.dart';
 
 void main() {
+  ///menjalankan program
+  bersih();
   var depan = Interface();
   depan.garisAtas();
   depan.teks("|");

@@ -2,14 +2,16 @@
 ///
 ///
 import 'dart:io';
-import 'proses.dart';
+import 'Daftar.dart';
 
-//fungsi interface depan
+///kelas title halaman depan
 class Interface {
+  //membuat garis =
   void garisAtas() {
     print('=' * 56);
   }
 
+  //function judul
   void teks(final samping) {
     String garis = '_';
     print("$samping ${" " * 15} BANK TENG INDONESIA ${" " * 16} $samping");
@@ -22,12 +24,14 @@ class Interface {
   }
 }
 
-//fungsi interface depan. inputan
-class Interface2 {
+///kelas halaman depan inputan
+class Interface2 extends Interface {
+  //function kelang satu baris
   void teks2(final samping) {
     print(samping + ' ' * 54 + samping);
   }
 
+  //function teks pembukaan
   void teks3(final samping) {
     print(samping +
         """
@@ -38,6 +42,18 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
     print('$samping Indonesia Maju 2024 ${' ' * 32} $samping');
   }
 
+  //function menu pilihan
+  void pilihan() {
+    final samping = '|';
+    teks2('|');
+    print("$samping ${" " * 5} PILIHAN:  ${" " * 36} $samping");
+    print("$samping ${" " * 5} 1.LOGIN  ${" " * 37} $samping");
+    print("$samping ${" " * 5} 2.DAFTAR  ${" " * 36} $samping");
+    teks2('|');
+    garisAtas();
+  }
+
+  //function proses inputan
   void input(final samping) {
     //var a = Login();
     var b = Daftar();
@@ -63,19 +79,21 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
     }
   }
 
+  //function mengulang inputan jika pengguna menginputkan teks string
   void TRy() {
-    garisAA();
     var ab = Interface();
+    garisAtas();
     ab.teks('|');
     teks2('|');
     teks3('|');
     pilihan();
-    print(' "Pilhan anda salah"');
+    print(' "Pilihan berupa angka (1 untuk login dan 2 untuk daftar )"');
     input('|');
   }
 
+  //function mengulang inputan jika pengguna menginputkan nomor bukan 1 atau 2
   void Try2() {
-    garisAA();
+    garisAtas();
     var ab = Interface();
     ab.teks('|');
     teks2('|');
@@ -84,26 +102,10 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
     print(' "Inputan harus angka 1 atau 2"');
     input('|');
   }
-
-  void pilihan() {
-    final samping = '|';
-    /*
-    int? milih = int.parse(stdin.readLineSync()!);
-    */
-
-    teks2('|');
-    print("$samping ${" " * 5} PILIHAN:  ${" " * 36} $samping");
-    print("$samping ${" " * 5} 1.LOGIN  ${" " * 37} $samping");
-    print("$samping ${" " * 5} 2.DAFTAR  ${" " * 36} $samping");
-    teks2('|');
-
-    //memanggil garis atas
-    var cn = Interface();
-    cn.garisAtas();
-  }
 }
 
 void main() {
+  ///menjalankan function
   var interface = Interface();
   interface.garisAtas();
   interface.teks('|');

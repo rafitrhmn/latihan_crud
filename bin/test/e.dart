@@ -2,7 +2,7 @@
 ///
 import 'dart:math';
 
-import '../proses.dart';
+import '../Daftar.dart';
 
 //fungsi mendapat nomor atm
 String dptacak(int y) {
@@ -15,7 +15,7 @@ String dptacak(int y) {
 }
 
 //fungsi memeuncul nomor atm
-void munculnomoratm() async {
+void munculnomoratm2() async {
   print(' ');
   print('${' ' * 3}Loading...');
   await Future.delayed(Duration(milliseconds: 1500));
@@ -26,8 +26,11 @@ void munculnomoratm() async {
   print('Nomor ATM anda : ${dptacak(1)}');
   print(' ');
   print('Terima kasaih telah mendaftar di bank Teng');
+  var fgh = Daftar();
+  var gh = fgh.ijka();
+  print(gh);
 }
 
 void main() {
-  munculnomoratm();
+  munculnomoratm2();
 }
