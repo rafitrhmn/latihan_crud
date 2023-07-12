@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:core';
 import 'dart:math';
+import 'login.dart';
 
 //function title halaman daftar
 void garisAA({final jk = '=', final jl = '|'}) {
@@ -53,9 +54,15 @@ class Daftar {
     var xc = nama.trim();
     var ds = xc.replaceAll('  ', ' ');
     RegExp cek = RegExp(r'^[a-zA-Z\s]+$');
+    //function inner
+    void ceknam2() {
+      terima(1, ds);
+    }
+
     var ba = cek.hasMatch(ds);
     if (ba == true) {
       namaa.add(ds);
+      ceknam2();
       inputhp2();
     } else {
       salah(1);
@@ -309,11 +316,26 @@ ${' ' * 17}  dan berawalan 08''');
     var h = cek.hasMatch(nerima);
     var hy = cek2.hasMatch(nerima);
     if (h == true) {
-      print('ke halaman login');
+      var hjk = Login();
+      hjk.run();
     } else if (hy == true) {
-      print('kehalaman daftar');
+      print('ulajk');
     } else {
       print('ulang');
+    }
+  }
+
+  //function menerima list
+  void terima(int h, String ds) {
+    if (h == 1) {
+      List<String> njk = [];
+      njk.add(ds);
+    } else if (h == 2) {
+      List<String> nomorgh = [];
+    } else if (h == 3) {
+      List emaijo = [];
+    } else if (h == 4) {
+      var piokj = [];
     }
   }
 }

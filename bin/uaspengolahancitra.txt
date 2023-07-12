@@ -1,0 +1,109 @@
+//mengukur berat badan
+% Minta pengguna memasukkan berat badan
+weight = input('Masukkan berat badan (kg): ');
+
+% Validasi input berat badan
+if weight <= 0
+    error('Berat badan harus lebih besar dari 0.');
+end
+
+% Tampilkan berat badan
+fprintf('Berat badan yang dimasukkan: %.2f kg\n', weight);
+
+//mengukur suhu
+% Membaca suhu lingkungan
+temperature = webread('http://api.openweathermap.org/data/2.5/weather?q=CityName&appid=YourAPIKey');
+temperature = temperature.main.temp - 273.15; % Mengonversi dari Kelvin ke Celsius
+
+% Menampilkan hasil pengukuran suhu
+fprintf('Suhu lingkungan: %.2f derajat Celsius\n', temperature);
+
+
+// rgb ke green Screen
+% Membaca gambar RGB
+rgbImage = imread('gambar_rgb.jpg');
+
+% Menentukan ambang batas warna hijau yang akan diganti
+greenThreshold = 100; % Sesuaikan dengan kecerahan hijau pada gambar
+
+% Mengambil matriks saluran warna merah (red), hijau (green), dan biru (blue) dari gambar RGB
+redChannel = rgbImage(:, :, 1);
+greenChannel = rgbImage(:, :, 2);
+blueChannel = rgbImage(:, :, 3);
+
+% Membuat matriks mask yang menunjukkan piksel yang memiliki warna hijau yang melebihi ambang batas
+mask = (greenChannel > greenThreshold) & (redChannel < (greenChannel * 0.8)) & (blueChannel < (greenChannel * 0.8));
+
+% Mengganti piksel dengan warna putih (255) menggunakan mask
+outputImage = rgbImage;
+outputImage(repmat(mask, [1, 1, 3])) = 255;
+
+% Menampilkan gambar hasil
+subplot(1, 2, 1);
+imshow(rgbImage);
+title('Gambar RGB');
+
+subplot(1, 2, 2);
+imshow(outputImage);
+title('Hasil Green Screen');
+
+
+
+//rgb ke redscreen
+% Membaca gambar RGB
+rgbImage = imread('gambar_rgb.jpg');
+
+% Menentukan ambang batas warna merah yang akan diganti
+redThreshold = 100; % Sesuaikan dengan kecerahan merah pada gambar
+
+% Mengambil matriks saluran warna merah (red), hijau (green), dan biru (blue) dari gambar RGB
+redChannel = rgbImage(:, :, 1);
+greenChannel = rgbImage(:, :, 2);
+blueChannel = rgbImage(:, :, 3);
+
+% Membuat matriks mask yang menunjukkan piksel yang memiliki warna merah yang melebihi ambang batas
+mask = (redChannel > redThreshold) & (greenChannel < (redChannel * 0.7)) & (blueChannel < (redChannel * 0.7));
+
+% Mengganti piksel dengan warna putih (255) menggunakan mask
+outputImage = rgbImage;
+outputImage(repmat(mask, [1, 1, 3])) = 255;
+
+% Menampilkan gambar hasil
+subplot(1, 2, 1);
+imshow(rgbImage);
+title('Gambar RGB');
+
+subplot(1, 2, 2);
+imshow(outputImage);
+title('Hasil Red Screen');
+
+
+//rgb ke bluescreen
+% Membaca gambar RGB
+rgbImage = imread('gambar_rgb.jpg');
+
+% Menentukan ambang batas warna biru yang akan diganti
+blueThreshold = 100; % Sesuaikan dengan kecerahan biru pada gambar
+
+% Mengambil matriks saluran warna merah (red), hijau (green), dan biru (blue) dari gambar RGB
+redChannel = rgbImage(:, :, 1);
+greenChannel = rgbImage(:, :, 2);
+blueChannel = rgbImage(:, :, 3);
+
+% Membuat matriks mask yang menunjukkan piksel yang memiliki warna biru yang melebihi ambang batas
+mask = (blueChannel > blueThreshold) & (redChannel < (blueChannel * 0.8)) & (greenChannel < (blueChannel * 0.8));
+
+% Mengganti piksel dengan warna putih (255) menggunakan mask
+outputImage = rgbImage;
+outputImage(repmat(mask, [1, 1, 3])) = 255;
+
+% Menampilkan gambar hasil
+subplot(1, 2, 1);
+imshow(rgbImage);
+title('Gambar RGB');
+
+subplot(1, 2, 2);
+imshow(outputImage);
+title('Hasil Blue Screen');
+
+

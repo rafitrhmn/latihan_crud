@@ -1,36 +1,134 @@
-///fungsi mendapatkan nilai acak
-///
-import 'dart:math';
+import 'c.dart';
+import 'c2.dart';
+import 'dart:io';
 
-import '../Daftar.dart';
-
-//fungsi mendapat nomor atm
-String dptacak(int y) {
-  var acak = Random();
-  var y = '';
-  for (var i = 0; i < 7; i++) {
-    y += acak.nextInt(10).toString();
+class Login {
+  //function database sistem
+  void database() {
+    List<String> nama = ['Rafi', 'loyi'];
+    List<String> nohp = ['0895418403700', '085424531342'];
+    List<String> email = ['rafi@gmail.com', 'loyi@gmail.com'];
+    List<String> pin = ['123456', '345678'];
+    List<String> nomoratm = ['1234567', '7654321'];
+    Map<String, String> tgh = {
+      nomoratm[0]: pin[0],
+      nomoratm[1]: pin[1],
+    };
+    input(tgh: tgh);
   }
-  return y;
+
+  void input({Map? tgh}) async {
+    /*
+    void slhverif(int a) {
+      if (a == 1) {
+        print('nomor atm harus berupa 7 karakter angka');
+      } else if (a == 2) {
+        print('nomor atm tidak ditemukan');
+      } else if (a == 3) {
+        print('PIN harus berupa 6 karakter angka');
+      } else if (a == 4) {
+        print('PIN salah');
+      }
+    }
+    */
+
+    //proses input dan verifikasi
+    void proses() async {
+      print('\n${' ' * 3} Loading...');
+      //
+      int jmlhpercobaan = 0;
+      int bataspercobaan = 5;
+      bool berhasilmasuk = false;
+      //
+      while (jmlhpercobaan < bataspercobaan && !berhasilmasuk) {
+        await funglam();
+        bersih();
+        title();
+
+        //input nomor atm dan pin
+        print('   Masuk ke akun anda\n');
+        stdout.write('Nomor ATM   : ');
+        String namak = stdin.readLineSync()!;
+        var ghj = namak.trim();
+        var hhn = ghj.replaceAll(' ', '');
+        stdout.write('PIN         : ');
+        String ikl = '';
+        stdin.echoMode = false;
+        ikl = stdin.readLineSync()!;
+        var dfg = ikl.trim();
+        var sdf = dfg.replaceAll(' ', '');
+        stdin.echoMode = true;
+        stdout.write('\n');
+
+        //verifikasi nomor atm adalah angka
+        RegExp verifNomorAtm = RegExp(r'^\d{7}');
+        bool isverif = verifNomorAtm.hasMatch(hhn);
+        //verifikasi pin adalah angka
+        RegExp verifPIN = RegExp(r'^\d{6}');
+        bool isverifpin = verifPIN.hasMatch(sdf);
+        var gh = tgh?[hhn] == sdf;
+
+        if (isverif == false) {
+          jmlhpercobaan++;
+          print('"nomor atm harus berupa 7 karakter angka"');
+          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('');
+        } else if (tgh!.containsKey(hhn) == false) {
+          jmlhpercobaan++;
+          print('"nomor atm tidak ditemukan"');
+          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('');
+        } else if (isverifpin == false) {
+          jmlhpercobaan++;
+          print('"PIN harus berupa 6 karakter angka"');
+          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('');
+        } else if (gh == false) {
+          jmlhpercobaan++;
+          print('"PIN salah"');
+          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('');
+        } else if (tgh.containsKey(hhn) && gh) {
+          berhasilmasuk = true;
+        }
+      }
+      if (berhasilmasuk) {
+        print('akun ditemukan... masuk akun anda');
+      } else {
+        bool i = false;
+        bool p = false;
+        while (i = false) {
+          stdout.write(
+              'anda telah melebihi batas percobaan. mau ganti nomor atm dan PIN ? (Y/N)');
+          String answer = stdin.readLineSync()!;
+          RegExp verif = RegExp(r'(Y|y|i?ya)');
+          RegExp verif2 = RegExp(r'(N|n|tidak)');
+          var i = verif.hasMatch(answer);
+          var p = verif2.hasMatch(answer);
+          if (i == true) {
+            i = true;
+          } else if (p == true) {
+            input();
+          }
+        }
+        if (i == true) {
+          print('ke halaman login');
+        }
+      }
+    }
+
+    //dijalankan
+    proses();
+  }
 }
 
-//fungsi memeuncul nomor atm
-void munculnomoratm2() async {
-  print(' ');
-  print('${' ' * 3}Loading...');
-  await Future.delayed(Duration(milliseconds: 1500));
-
+//ketika salah nomor atm
+void slhatm() async {
+  await funglam();
   bersih();
-  garisAA();
-  print(' ');
-  print('Nomor ATM anda : ${dptacak(1)}');
-  print(' ');
-  print('Terima kasaih telah mendaftar di bank Teng');
-  var fgh = Daftar();
-  var gh = fgh.ijka();
-  print(gh);
 }
 
 void main() {
-  munculnomoratm2();
+  var a = Login();
+  a.database();
 }
