@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:core';
 import 'dart:math';
+import 'halaman_depan.dart';
 import 'login.dart';
 
 //function title halaman daftar
@@ -54,15 +55,10 @@ class Daftar {
     var xc = nama.trim();
     var ds = xc.replaceAll('  ', ' ');
     RegExp cek = RegExp(r'^[a-zA-Z\s]+$');
-    //function inner
-    void ceknam2() {
-      terima(1, ds);
-    }
-
     var ba = cek.hasMatch(ds);
     if (ba == true) {
       namaa.add(ds);
-      ceknam2();
+      iwl.add(ds);
       inputhp2();
     } else {
       salah(1);
@@ -77,6 +73,7 @@ class Daftar {
     var gi = cek.hasMatch(jok(hp));
     if (gi == true) {
       noHp.add(jok(hp));
+      iwl.add(jok(hp));
       email();
     } else {
       salah(2);
@@ -91,6 +88,7 @@ class Daftar {
     var hi = emailRegex.hasMatch(jok(emaik));
     if (hi == true) {
       emaill.add(jok(emaik));
+      iwl.add(jok(emaik));
       pin();
     } else {
       salah(3);
@@ -109,7 +107,7 @@ class Daftar {
 
     //inner function konfirmasi pin
     void verif2() async {
-      stdout.write('Konfirmasi PIN   :');
+      stdout.write('Konfirmasi PIN   : ');
       String pik = ' ';
       stdin.echoMode = false;
       pik = stdin.readLineSync()!;
@@ -145,6 +143,7 @@ class Daftar {
     RegExp nmk = RegExp(r'^\d{6}$');
     bool gi = nmk.hasMatch(jok(pinj));
     if (gi == true) {
+      iwl.add(jok(pinj));
       verif2();
     } else {
       salah(4);
@@ -288,6 +287,7 @@ ${' ' * 17}  dan berawalan 08''');
         y += acak.nextInt(10).toString();
       }
     }
+    iwl.add(y);
     return y;
   }
 
@@ -316,27 +316,20 @@ ${' ' * 17}  dan berawalan 08''');
     var h = cek.hasMatch(nerima);
     var hy = cek2.hasMatch(nerima);
     if (h == true) {
-      var hjk = Login();
-      hjk.run();
+      ngirim();
     } else if (hy == true) {
-      print('ulajk');
+      regis();
     } else {
-      print('ulang');
+      var p = RunFront();
+      p.run();
     }
   }
 
-  //function menerima list
-  void terima(int h, String ds) {
-    if (h == 1) {
-      List<String> njk = [];
-      njk.add(ds);
-    } else if (h == 2) {
-      List<String> nomorgh = [];
-    } else if (h == 3) {
-      List emaijo = [];
-    } else if (h == 4) {
-      var piokj = [];
-    }
+//menerima seluruh inputan
+  List<String> iwl = [];
+  void ngirim() {
+    var ghn = Login();
+    ghn.database(iwl[0], iwl[1], iwl[2], iwl[3], iwl[4]);
   }
 }
 

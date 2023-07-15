@@ -1,3 +1,4 @@
+import '../halaman_depan.dart';
 import 'c.dart';
 import 'c2.dart';
 import 'dart:io';
@@ -95,24 +96,19 @@ class Login {
       if (berhasilmasuk) {
         print('akun ditemukan... masuk akun anda');
       } else {
-        bool i = false;
-        bool p = false;
-        while (i = false) {
-          stdout.write(
-              'anda telah melebihi batas percobaan. mau ganti nomor atm dan PIN ? (Y/N)');
-          String answer = stdin.readLineSync()!;
-          RegExp verif = RegExp(r'(Y|y|i?ya)');
-          RegExp verif2 = RegExp(r'(N|n|tidak)');
-          var i = verif.hasMatch(answer);
-          var p = verif2.hasMatch(answer);
-          if (i == true) {
-            i = true;
-          } else if (p == true) {
-            input();
-          }
-        }
+        stdout.write('Anda melebihi batas percobaan. ganti PIN ATM ? (Y/N)');
+        String answer = stdin.readLineSync()!;
+        RegExp verif = RegExp(r'(Y|y|i?ya)');
+        RegExp verif2 = RegExp(r'(N|n|tidak)');
+        var i = verif.hasMatch(answer);
+        var l = verif2.hasMatch(answer);
         if (i == true) {
           print('ke halaman login');
+        } else if (l == true) {
+          proses();
+        } else {
+          var p = RunFront();
+          p.run();
         }
       }
     }

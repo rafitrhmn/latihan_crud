@@ -62,7 +62,6 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
       stdout.write('  MASUKKAN ANGKA PILIHAN ANDA : ');
       int milih = int.parse(stdin.readLineSync()!);
       if (milih == 1) {
-        //a.cd();
         print('p');
       } else if (milih == 2) {
         b.regis();
@@ -101,6 +100,22 @@ $samping Selamat datang di Bank Teng Indonesia ${' ' * 14} $samping""");
     pilihan();
     print(' "Inputan harus angka 1 atau 2"');
     input('|');
+  }
+}
+
+class RunFront {
+  void run() async {
+    await funglam();
+    bersih();
+    var interface = Interface();
+    interface.garisAtas();
+    interface.teks('|');
+
+    var interface2 = Interface2();
+    interface2.teks2('|');
+    interface2.teks3('|');
+    interface2.pilihan();
+    interface2.input('|');
   }
 }
 
