@@ -1,36 +1,61 @@
 import 'halaman_depan.dart';
-import 'Daftar.dart';
+import 'register.dart';
 import 'dart:io';
+import 'core_page.dart';
 
 class Login {
   //function database sistem
-  void database(String q, String r, String s, String t, String u) {
-    List<String> nama = ['Rafi', 'loyi', q];
-    List<String> nohp = ['0895418403700', '085424531342', r];
-    List<String> email = ['rafi@gmail.com', 'loyi@gmail.com', s];
-    List<String> pin = ['123456', '345678', t];
-    String i = u.replaceAll(' ', '');
-    List<String> nomoratm = ['1234567', '7654321', i];
-    Map<String, String> tgh = {
-      nomoratm[0]: pin[0],
-      nomoratm[1]: pin[1],
-      nomoratm[2]: pin[2],
-    };
-    input(tgh: tgh);
+  void database({String? q, String? r, String? s, String? t, String? u}) {
+    List<String> nama = ['Rafi', 'loyi', '$q'];
+    List<String> nohp = ['0895418403700', '085424531342', '$r'];
+    List<String> email = ['rafi@gmail.com', 'loyi@gmail.com', '$s'];
+    List<String> pin = ['123456', '345678', '$t'];
+    String i() => '$u';
+    String j = i().replaceAll(' ', '');
+    List<String> nomoratm = ['1234567', '7654321', j];
+    int jumlahnomoratm = nomoratm.length;
+    Map<String, Map<String, String>> data = {};
+
+    for (int i = 0; i < jumlahnomoratm; i++) {
+      String nomoratm2 = nomoratm[i];
+      String pin2 = pin[i];
+      String nama2 = nama[i];
+      String nohp2 = nohp[i];
+      String email2 = email[i];
+
+      Map<String, String> detaildata = {
+        'pin': pin2,
+        'nama': nama2,
+        'nohp': nohp2,
+        'email': email2,
+      };
+      data[nomoratm2] = detaildata;
+    }
   }
 
-  void input({Map? tgh}) async {
+  void input({Map? loginAccess, Map? user}) async {
+    //function mencari user dari inputan nomor atm
+    String finduser(hhn) {
+      if (user!.containsKey(hhn)) {
+        return '${user[hhn]}';
+      } else {
+        return 'f';
+      }
+    }
+
     //proses input dan verifikasi
     void proses() async {
       print('\n${' ' * 3} Loading...');
       //
-      int jmlhpercobaan = 0;
-      int bataspercobaan = 5;
+      int jumlahPercobaan = 0;
+      int batasPercobaan = 5;
       bool berhasilmasuk = false;
+      String nama = '';
+      String noatm2 = '';
       //
-      while (jmlhpercobaan < bataspercobaan && !berhasilmasuk) {
+      while (jumlahPercobaan < batasPercobaan && !berhasilmasuk) {
         await second3();
-        bersih();
+        eraser();
         titlelogin();
 
         //input nomor atm dan pin
@@ -54,38 +79,43 @@ class Login {
         //verifikasi pin adalah angka
         RegExp verifPIN = RegExp(r'^\d{6}');
         bool isverifpin = verifPIN.hasMatch(sdf);
-        var gh = tgh?[hhn] == sdf;
+        bool gh = loginAccess?[hhn] == sdf;
 
         if (isverif == false) {
-          jmlhpercobaan++;
+          jumlahPercobaan++;
           print('');
           print('"nomor atm harus berupa 7 karakter angka"');
-          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (tgh!.containsKey(hhn) == false) {
-          jmlhpercobaan++;
+        } else if (loginAccess!.containsKey(hhn) == false) {
+          jumlahPercobaan++;
           print('');
           print('"nomor atm tidak ditemukan"');
-          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
         } else if (isverifpin == false) {
-          jmlhpercobaan++;
+          jumlahPercobaan++;
           print('');
           print('"PIN harus berupa 6 karakter angka"');
-          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
         } else if (gh == false) {
-          jmlhpercobaan++;
+          jumlahPercobaan++;
           print('');
           print('"PIN salah"');
-          print('"Sisa percobaan: ${bataspercobaan - jmlhpercobaan}"');
+          print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (tgh.containsKey(hhn) && gh) {
+        } else if (loginAccess.containsKey(hhn) && gh) {
           berhasilmasuk = true;
+          String cekuser = finduser(hhn);
+          nama = cekuser;
+          noatm2 = hhn;
         }
       }
       if (berhasilmasuk) {
-        print('akun ditemukan... masuk akun anda');
+        print('akun ditemukan, masuk akun anda....');
+        var i = Core(nama, noatm2);
+        i.run();
       } else {
         stdout.write('Anda melebihi batas percobaan. ganti PIN ATM ? (Y/N)');
         String answer = stdin.readLineSync()!;
@@ -111,8 +141,8 @@ class Login {
 
 //ketika salah nomor atm
 void slhatm() async {
-  await funglam();
-  bersih();
+  await waiting();
+  eraser();
 }
 
 //judul login
