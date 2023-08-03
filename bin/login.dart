@@ -13,6 +13,7 @@ class Login {
     String i() => '$u';
     String j = i().replaceAll(' ', '');
     List<String> nomoratm = ['1234567', '7654321', j];
+    List<String> saldo = ['1.000.000.000', '20.000.000', '000'];
     int jumlahnomoratm = nomoratm.length;
     Map<String, Map<String, String>> data = {};
 
@@ -22,22 +23,38 @@ class Login {
       String nama2 = nama[i];
       String nohp2 = nohp[i];
       String email2 = email[i];
+      String saldo2 = saldo[i];
 
       Map<String, String> detaildata = {
         'pin': pin2,
         'nama': nama2,
         'nohp': nohp2,
         'email': email2,
+        'saldo': saldo2,
       };
       data[nomoratm2] = detaildata;
     }
+    input(data: data);
   }
 
-  void input({Map? loginAccess, Map? user}) async {
+  void input({Map? data}) async {
     //function mencari user dari inputan nomor atm
-    String finduser(hhn) {
-      if (user!.containsKey(hhn)) {
-        return '${user[hhn]}';
+    String finduser(hhn, int parameter) {
+      if (data!.containsKey(hhn) && parameter == 1) {
+        var a = '${data[hhn]?['nama']}';
+        return a;
+      } else if (data.containsKey(hhn) && parameter == 2) {
+        var b = '${data[hhn]?['nohp']}';
+        return b;
+      } else if (data.containsKey(hhn) && parameter == 3) {
+        var c = '${data[hhn]?['email']}';
+        return c;
+      } else if (data.containsKey(hhn) && parameter == 4) {
+        var d = '${data[hhn]?['pin']}';
+        return d;
+      } else if (data.containsKey(hhn) && parameter == 5) {
+        var d = '${data[hhn]?['saldo']}';
+        return d;
       } else {
         return 'f';
       }
@@ -51,7 +68,11 @@ class Login {
       int batasPercobaan = 5;
       bool berhasilmasuk = false;
       String nama = '';
-      String noatm2 = '';
+      String noatm = '';
+      String nohp = '';
+      String email = '';
+      String pin = '';
+      String saldo = '';
       //
       while (jumlahPercobaan < batasPercobaan && !berhasilmasuk) {
         await second3();
@@ -79,7 +100,7 @@ class Login {
         //verifikasi pin adalah angka
         RegExp verifPIN = RegExp(r'^\d{6}');
         bool isverifpin = verifPIN.hasMatch(sdf);
-        bool gh = loginAccess?[hhn] == sdf;
+        bool gh = data![hhn]?["pin"] != null && data[hhn]?['pin'] == sdf;
 
         if (isverif == false) {
           jumlahPercobaan++;
@@ -87,7 +108,7 @@ class Login {
           print('"nomor atm harus berupa 7 karakter angka"');
           print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (loginAccess!.containsKey(hhn) == false) {
+        } else if (data.containsKey(hhn) == false) {
           jumlahPercobaan++;
           print('');
           print('"nomor atm tidak ditemukan"');
@@ -105,16 +126,25 @@ class Login {
           print('"PIN salah"');
           print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (loginAccess.containsKey(hhn) && gh) {
+        } else if (data.containsKey(hhn) && gh) {
           berhasilmasuk = true;
-          String cekuser = finduser(hhn);
-          nama = cekuser;
-          noatm2 = hhn;
+          String takename = finduser(hhn, 1);
+          String takenohp = finduser(hhn, 2);
+          String takeemail = finduser(hhn, 3);
+          String takepin = finduser(hhn, 4);
+          String takesaldo = finduser(hhn, 5);
+          nama = takename;
+          noatm = hhn;
+          nohp = takenohp;
+          email = takeemail;
+          pin = takepin;
+          saldo = takesaldo;
         }
       }
       if (berhasilmasuk) {
         print('akun ditemukan, masuk akun anda....');
-        var i = Core(nama, noatm2);
+        var i =
+            Core(nama, noatm, nohp: nohp, email: email, pin: pin, saldo: saldo);
         i.run();
       } else {
         stdout.write('Anda melebihi batas percobaan. ganti PIN ATM ? (Y/N)');
@@ -122,10 +152,10 @@ class Login {
         RegExp verif = RegExp(r'(Y|y|i?ya)');
         RegExp verif2 = RegExp(r'(N|n|tidak)');
         var i = verif.hasMatch(answer);
-        var l = verif2.hasMatch(answer);
+        var p = verif2.hasMatch(answer);
         if (i == true) {
           print('ke halaman login');
-        } else if (l == true) {
+        } else if (p == true) {
           proses();
         } else {
           var p = RunFront();

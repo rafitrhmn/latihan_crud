@@ -1,17 +1,17 @@
 import 'halaman_depan.dart';
-import 'Daftar.dart';
+import 'register.dart';
 
 void main() {
   ///menjalankan program
-  bersih();
+  eraser();
   var depan = Interface();
-  depan.garisAtas();
-  depan.teks("|");
+  depan.lineEquals();
+  depan.text("|");
 
   var depan2 = Interface2();
-  depan2.teks2('|');
-  depan2.teks3('|');
-  depan2.pilihan();
+  depan2.text2('|');
+  depan2.text3('|');
+  depan2.option();
   depan2.input('|');
 }
 

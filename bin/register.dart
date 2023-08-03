@@ -4,32 +4,9 @@ import 'dart:math';
 import 'halaman_depan.dart';
 import 'login.dart';
 
-//function title halaman daftar
-void garisAA({final jk = '=', final jl = '|'}) {
-  print('${jk * 22}');
-  print('$jl   HALAMAN DAFTAR   $jl');
-  print('${jk * 22}');
-}
-
-//function teks pembukaan halaman daftar
-void opening() {
-  print('');
-  print('  Masukan biodata nama, nomor handphone, email');
-  print('  dan PIN untuk membuat akun di BANK TENG INDONESIA');
-}
-
-//function menghapus terminal
-void bersih() {
-  stdout.write('\x1B[2J\x1B[0;0H');
-}
-
-//function menuggu beberapa detik
-Future<dynamic> funglam() async =>
-    await Future.delayed(Duration(milliseconds: 1500));
-
 /// class daftar
 class Daftar {
-  //variable lokal class daftar
+  //field class daftar
   List<String> namaa = [];
   List<String> noHp = [];
   var emaill = [];
@@ -37,36 +14,36 @@ class Daftar {
   var pinn = [];
 
 //function halaman pertama dari halaman daftar
-  void regis() async {
+  void runningRegis() async {
     print(' ');
     print('${' ' * 3}Loading...');
-    await funglam();
-    bersih();
-    garisAA();
-    opening();
+    await waiting();
+    eraser();
+    tittleRegister();
+    textRegister();
     print(' ');
-    ceknama();
+    checkName();
   }
 
   //function input nama dan filter nama
-  void ceknama() {
+  void checkName() {
     stdout.write('Nama ${' ' * 11} : '); //input nama
     String nama = stdin.readLineSync()!;
-    var xc = nama.trim();
-    var ds = xc.replaceAll('  ', ' ');
+    var i = nama.trim();
+    var j = i.replaceAll('  ', ' ');
     RegExp cek = RegExp(r'^[a-zA-Z\s]+$');
-    var ba = cek.hasMatch(ds);
-    if (ba == true) {
-      namaa.add(ds);
-      iwl.add(ds);
-      inputhp2();
+    var testName = cek.hasMatch(j);
+    if (testName == true) {
+      namaa.add(j);
+      iwl.add(j);
+      checkNoHp();
     } else {
       salah(1);
     }
   }
 
   //function input no hp dan filter nomor hp
-  void inputhp2() {
+  void checkNoHp() {
     stdout.write('Nomor HandPhone ${' ' * 1}: ');
     String hp = stdin.readLineSync()!;
     RegExp cek = RegExp(r'^08\d{10,11}$');
@@ -116,9 +93,9 @@ class Daftar {
       if (pik == jok(pinj)) {
         munculnomoratm();
       } else {
-        bersih();
-        garisAA();
-        opening();
+        eraser();
+        tittleRegister();
+        textRegister();
         print(' ');
         fungnama();
         fungno();
@@ -126,10 +103,10 @@ class Daftar {
         fungpin();
         print('');
         print('${' ' * 17} "Pin tidak cocok"');
-        await funglam();
-        bersih();
-        garisAA();
-        opening();
+        await waiting();
+        eraser();
+        tittleRegister();
+        textRegister();
         print(' ');
         fungnama();
         fungno();
@@ -156,12 +133,12 @@ class Daftar {
     void slhnma() async {
       print(' ');
       print('${' ' * 3}"Gunakan Huruf untuk mengisi nama');
-      await funglam();
-      bersih();
-      garisAA();
-      opening();
+      await waiting();
+      eraser();
+      tittleRegister();
+      textRegister();
       print(' ');
-      ceknama();
+      checkName();
     }
 
     //inner function jika input nohp salah
@@ -172,13 +149,13 @@ class Daftar {
       print('''
 ${' ' * 17} "Nomor Handphone harus berjumlah 12 atau 13 angka
 ${' ' * 17}  dan berawalan 08''');
-      await funglam();
-      bersih();
-      garisAA();
-      opening();
+      await waiting();
+      eraser();
+      tittleRegister();
+      textRegister();
       print(' ');
       fungnama();
-      inputhp2();
+      checkNoHp();
     }
 
     //inner function jika input email salah
@@ -188,10 +165,10 @@ ${' ' * 17}  dan berawalan 08''');
       fungno();
       print('');
       print('${' ' * 17} Email harus berakhiran @gmail.com');
-      await funglam();
-      bersih();
-      garisAA();
-      opening();
+      await waiting();
+      eraser();
+      tittleRegister();
+      textRegister();
       print(' ');
       fungnama();
       fungno();
@@ -206,10 +183,10 @@ ${' ' * 17}  dan berawalan 08''');
       fungemail();
       print(' ');
       print('${' ' * 17} "Masukkan PIN dengan 6 angka acak"');
-      await funglam();
-      bersih();
-      garisAA();
-      opening();
+      await waiting();
+      eraser();
+      tittleRegister();
+      textRegister();
       print(' ');
       fungnama();
       fungno();
@@ -218,9 +195,9 @@ ${' ' * 17}  dan berawalan 08''');
     }
 
     ///pertama kali dijalankan di function "salah".
-    bersih();
-    garisAA();
-    opening();
+    eraser();
+    tittleRegister();
+    textRegister();
     if (np == 1) {
       slhnma();
     } else if (np == 2) {
@@ -270,10 +247,10 @@ ${' ' * 17}  dan berawalan 08''');
   }
 
   //function title halaman muncul nomor atm
-  void garisAu({final jk = '=', final jl = '|'}) {
-    print('${jk * 22}');
-    print('$jl     NOMOR ATM${' ' * 6}$jl');
-    print('${jk * 22}');
+  void garisAu({final side_1 = '=', final side_2 = '|'}) {
+    print('${side_1 * 22}');
+    print('$side_2     NOMOR ATM${' ' * 6}$side_2');
+    print('${side_1 * 22}');
   }
 
   //function mendapat nomor atm
@@ -296,7 +273,7 @@ ${' ' * 17}  dan berawalan 08''');
     print(' ');
     print('${' ' * 3}Loading...');
     await Future.delayed(Duration(milliseconds: 1500));
-    bersih();
+    eraser();
     garisAu();
     print(' ');
     print('Nomor ATM anda : ${dptacak()}');
@@ -308,7 +285,7 @@ ${' ' * 17}  dan berawalan 08''');
 
   //function tanya ke pengguna mau ke halaman daftar?
   void kembali() async {
-    await funglam();
+    await waiting();
     stdout.write('Masuk ke akun anda ?? (Y/N) :');
     String nerima = stdin.readLineSync()!;
     RegExp cek = RegExp(r'(Y|y|i?ya)');
@@ -318,7 +295,7 @@ ${' ' * 17}  dan berawalan 08''');
     if (h == true) {
       ngirim();
     } else if (hy == true) {
-      regis();
+      runningRegis();
     } else {
       var p = RunFront();
       p.run();
@@ -329,12 +306,37 @@ ${' ' * 17}  dan berawalan 08''');
   List<String> iwl = [];
   void ngirim() {
     var ghn = Login();
-    ghn.database(iwl[0], iwl[1], iwl[2], iwl[3], iwl[4]);
+    ghn.database(q: iwl[0], r: iwl[1], s: iwl[2], t: iwl[3], u: iwl[4]);
   }
 }
+
+///
+///
+//function title halaman daftar
+void tittleRegister({final side_1 = '=', final side_2 = '|'}) {
+  print('${side_1 * 22}');
+  print('$side_2   HALAMAN DAFTAR   $side_2');
+  print('${side_1 * 22}');
+}
+
+//function teks pembukaan halaman daftar
+void textRegister() {
+  print('');
+  print('  Masukan biodata nama, nomor handphone, email');
+  print('  dan PIN untuk membuat akun di BANK TENG INDONESIA');
+}
+
+//function menghapus terminal
+void eraser() {
+  stdout.write('\x1B[2J\x1B[0;0H');
+}
+
+//function menuggu beberapa detik
+Future<dynamic> waiting() async =>
+    await Future.delayed(Duration(milliseconds: 1500));
 
 //fungsi pengecekan huruf saja
 void main() {
   var b = Daftar();
-  b.regis();
+  b.runningRegis();
 }
