@@ -34,25 +34,37 @@ class Nabung {
     String input = stdin.readLineSync()!;
     String i = input.trim();
     String ii = i.replaceAll(' ', '');
-    RegExp regex = RegExp(r'^[\d]+$');
-    var scan = regex.hasMatch(ii);
+    String iii = ii.replaceAll('.', '');
+    RegExp regex = RegExp(r'^[\d.]+$');
+    var scan = regex.hasMatch(iii);
     if (scan == true) {
-      print('olah');
+      olah(iii);
     } else {
       print('ulang');
     }
-
-    // try {
-    //   int input = int.parse(stdin.readLineSync()!);
-    //   String i = input.toString();
-    //   String ii = i.trim();
-    //   String iii = ii.replaceAll(' ', '');
-    //   //konversi cetak
-    //   int jumalh = iii.length;
-    //   print('$jumalh and $input');
-    // } catch (e) {
-    //   print('ulang');
+    // void olah() {
+    //   print('mengolah');
+    //   int jumalhkarakter = ii.length;
+    //   for (int i = 0; i < jumalhkarakter; i++) {
+    //     if (jumalhkarakter == 4) {
+    //       var a = '${ii.substring(0, 1)},${ii.substring(1)}';
+    //       print(a);
+    //     }
+    //   }
     // }
+  }
+
+  void olah(String iii) {
+    if (iii.length == 4) {
+      print('${iii.substring(0, 1)}.${iii.substring(1)}');
+    } else if (iii.length == 5) {
+      print('${iii.substring(0, 2)}.${iii.substring(2)}');
+    } else if (iii.length == 6) {
+      print('${iii.substring(0, 3)}.${iii.substring(3)}');
+    } else if (iii.length == 7) {
+      print(
+          '${iii.substring(0, 1)}.${iii.substring(1, 5)}.${iii.substring(4)}');
+    }
   }
 }
 
