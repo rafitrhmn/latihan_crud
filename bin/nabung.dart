@@ -1,7 +1,5 @@
 ///halaman nabung
 ///
-import 'dart:math';
-
 import 'function.dart';
 import 'dart:io';
 
@@ -33,14 +31,28 @@ class Nabung {
   void text1() {
     print('   Masukkan jumlah uang yang ingin ditabung :');
     stdout.write('Rp ');
-    try {
-      int input = int.parse(stdin.readLineSync()!);
-      int a = 0;
-      int jumalh = input.bitLength();
-      for (var i = 0; )
-    } catch (e) {
+    String input = stdin.readLineSync()!;
+    String i = input.trim();
+    String ii = i.replaceAll(' ', '');
+    RegExp regex = RegExp(r'^[\d]+$');
+    var scan = regex.hasMatch(ii);
+    if (scan == true) {
+      print('olah');
+    } else {
       print('ulang');
     }
+
+    // try {
+    //   int input = int.parse(stdin.readLineSync()!);
+    //   String i = input.toString();
+    //   String ii = i.trim();
+    //   String iii = ii.replaceAll(' ', '');
+    //   //konversi cetak
+    //   int jumalh = iii.length;
+    //   print('$jumalh and $input');
+    // } catch (e) {
+    //   print('ulang');
+    // }
   }
 }
 
