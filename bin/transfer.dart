@@ -1,13 +1,11 @@
-import 'dart:io';
-
-import 'core_page.dart';
-import 'function.dart';
-import 'profile.dart';
-
-///halaman rekening ku
+/// halaman transfer
 ///
 
-class Rekeningku {
+import 'function.dart';
+import 'core_page.dart';
+import 'dart:io';
+
+class Transfer {
   String? nomoratm;
   String? nama;
   String? nohp;
@@ -16,7 +14,7 @@ class Rekeningku {
   String? saldo;
   Map? database;
 
-  Rekeningku(
+  Transfer(
       {final up = '=',
       final side = '|',
       this.nomoratm,
@@ -27,43 +25,42 @@ class Rekeningku {
       this.saldo,
       this.database}) {
     eraser();
-    print('${up * 27}');
-    print('$side   HALAMAN REKENING KU   $side');
-    print('${up * 27}');
+    print('${up * 24}');
+    print('$side   HALAMAN TRANSFER   $side');
+    print('${up * 24}');
     print('');
   }
 
   void text1([int? a]) {
-    var noatm = insertspace(nomoratm);
-    print('Nama       : $nama');
-    print('Nomor ATM  : $noatm \n');
-    print('      Saldo = Rp $saldo\n');
-    print('Pilihan:');
-    print('1. Nabung');
-    print('2. Transfer');
-    print('3. Kembali \n');
+    print('Transfer tepat dan akurat dari BANK TENG INDONESIA\n');
+    print('Pilih layanan transfer kamu :');
+    print('1. Transfer sesama bank');
+    print('2. Transfer bank lain');
+    print('3. E-Wallet');
+    print('4. Kembali\n');
     if (a == 1) {
-      print('"Masukkan angka 1 - 3"\n');
+      print('"Pilih Layanan anda dengan masukkan angka 1-4"\n');
     }
-
     try {
-      stdout.write(' MASUKKAN ANGKA PILIHAN : ');
+      stdout.write('MASUKKAN ANGKA PILIHAN: ');
       int choice = int.parse(stdin.readLineSync()!);
       if (choice == 1) {
-        print('ke halaman nabung');
+        print('ke Transfer sesama bank');
       } else if (choice == 2) {
-        print('ke halaman transfer ');
+        print('ke Transfer bank lain');
       } else if (choice == 3) {
-        var c = Core(nama, nomoratm,
+        print('ke e-wallet');
+      } else if (choice == 4) {
+        var a = Core(nama, nomoratm,
             nohp: nohp,
             email: email,
             pin: pin,
             saldo: saldo,
             database: database);
-        c.run();
+        a.run();
       }
     } catch (e) {
-      var b = Rekeningku(
+      var b = Transfer(
           nomoratm: nomoratm,
           nama: nama,
           nohp: nohp,
@@ -74,4 +71,9 @@ class Rekeningku {
       b.text1(1);
     }
   }
+}
+
+void main(List<String> args) {
+  var a = Transfer();
+  a.text1();
 }

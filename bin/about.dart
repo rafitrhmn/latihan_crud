@@ -1,12 +1,10 @@
-import 'core_page.dart';
+///halaman tentang kami
+///
 import 'function.dart';
 import 'dart:io';
+import 'core_page.dart';
 
-///halaman Profile
-///
-///
-
-class Profile {
+class About {
   String? nomoratm;
   String? nama;
   String? nohp;
@@ -15,7 +13,7 @@ class Profile {
   String? saldo;
   Map? database;
 
-  Profile(
+  About(
       {final up = '=',
       final side = '|',
       this.nomoratm,
@@ -26,20 +24,27 @@ class Profile {
       this.saldo,
       this.database}) {
     eraser();
-    print('${up * 24}');
-    print('$side   HALAMAN PROFILE    $side');
-    print('${up * 24}');
+    print('${up * 28}');
+    print('$side   HALAMAN TENTANG KAMI   $side');
+    print('${up * 28}');
     print('');
   }
 
-  //named contarktor ambil data
   void text1() {
-    var noatm = insertspace(nomoratm);
-    print('    PROFILE ANDA \n');
-    print('Nomor ATM    : $noatm');
-    print('Nama         : $nama');
-    print('No Handphone : $nohp');
-    print('Email        : $email \n');
+    print("""  
+Assalamualaikum Warahmatullahi Wabarokatuh
+
+Bank TENG INDONESIA. Bank nomor satu untuk masyarakat indonesia.
+Kami melayani anda dengan sepenuh hati. kami tidak mengabaikan 
+perasaan anda dalam menggunakan layanan kami. 
+
+Dengan Transfer dan Pembayaran SUPER CEPAT. anda tidak perlu
+khawatir dengan layanan kami. kami juga memproteksi uang dan 
+akun anda standar keamana yang tinggi. selamat menikmati layanan
+dari BANK TENG INDONESIA. Terima kasih 
+
+Wassalammualaikum warahmatullahi Wabarokatuh.
+""");
     kembali();
   }
 
@@ -54,10 +59,9 @@ class Profile {
     if (b == true) {
       var i = Core(nama, nomoratm,
           nohp: nohp, email: email, pin: pin, saldo: saldo, database: database);
-      // var j = Core.database(database);
       i.run();
     } else if (c == true) {
-      var p = Profile(
+      var p = About(
           nomoratm: nomoratm,
           nama: nama,
           nohp: nohp,
@@ -67,7 +71,7 @@ class Profile {
           database: database);
       p.text1();
     } else {
-      var p = Profile(
+      var p = About(
           nomoratm: nomoratm,
           nama: nama,
           nohp: nohp,
@@ -80,17 +84,7 @@ class Profile {
   }
 }
 
-String insertspace(String? nomoratm) {
-  String result = '';
-  for (var i = 0; i < nomoratm!.length; i++) {
-    if (i == 1) {
-      result += ' ';
-    } else if (i == 4) {
-      result += ' ';
-    }
-    result += nomoratm[i];
-  }
-  return result;
+void main(List<String> args) {
+  var a = About();
+  a.text1();
 }
-
-void main(List<String> args) {}

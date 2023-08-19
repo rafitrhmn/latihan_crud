@@ -3,9 +3,13 @@
 ///
 import 'dart:io';
 
+import 'about.dart';
+import 'payment.dart';
 import 'profile.dart';
-import 'register.dart';
+import 'function.dart';
 import 'rekeningku.dart';
+import 'transfer.dart';
+import 'halaman_depan.dart';
 
 class Core {
   String? nama;
@@ -14,9 +18,14 @@ class Core {
   String? noatm;
   String? pin;
   String? saldo;
+  Map? database;
 
   //constraktor
-  Core(this.nama, this.noatm, {this.nohp, this.email, this.pin, this.saldo});
+  Core(this.nama, this.noatm,
+      {this.nohp, this.email, this.pin, this.saldo, this.database});
+
+  //named constarktor
+  // Core.database(this.database);
 
   //function running
   void run([int? a]) async {
@@ -40,7 +49,7 @@ class Core {
     //
     if (a == 1) {
       print('');
-      print('  "Pilih Layanan anda dengan masukkan angka 1-6"');
+      print('  "Pilih Layanan anda dengan masukkan angka 1-6"\n');
     }
     try {
       print(' ');
@@ -53,7 +62,8 @@ class Core {
             nohp: nohp,
             email: email,
             pin: pin,
-            saldo: saldo);
+            saldo: saldo,
+            database: database);
         a.text1();
       } else if (choice == 2) {
         var b = Rekeningku(
@@ -62,16 +72,42 @@ class Core {
             nohp: nohp,
             email: email,
             pin: pin,
-            saldo: saldo);
+            saldo: saldo,
+            database: database);
         b.text1();
       } else if (choice == 3) {
-        print('Halaman Transfer');
+        var c = Transfer(
+            nomoratm: noatm,
+            nama: nama,
+            nohp: nohp,
+            email: email,
+            pin: pin,
+            saldo: saldo,
+            database: database);
+        c.text1();
       } else if (choice == 4) {
-        print('Halaman pembayaran');
+        var d = Payment(
+            nomoratm: noatm,
+            nama: nama,
+            nohp: nohp,
+            email: email,
+            pin: pin,
+            saldo: saldo,
+            database: database);
+        d.text1();
       } else if (choice == 5) {
-        print('Halaman Tentang kami');
+        var e = About(
+            nomoratm: noatm,
+            nama: nama,
+            nohp: nohp,
+            email: email,
+            pin: pin,
+            saldo: saldo,
+            database: database);
+        e.text1();
       } else if (choice == 6) {
-        print('Halaman keluar');
+        var f = Interface();
+        f.run(2, database);
       } else if (choice < 0 || choice >= 7) {
         run(1);
       }

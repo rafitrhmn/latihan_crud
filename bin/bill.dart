@@ -1,13 +1,10 @@
+///halaman bayar tagihan
+///
+import 'payment.dart';
+import 'function.dart';
 import 'dart:io';
 
-import 'core_page.dart';
-import 'function.dart';
-import 'profile.dart';
-
-///halaman rekening ku
-///
-
-class Rekeningku {
+class Bill {
   String? nomoratm;
   String? nama;
   String? nohp;
@@ -16,7 +13,7 @@ class Rekeningku {
   String? saldo;
   Map? database;
 
-  Rekeningku(
+  Bill(
       {final up = '=',
       final side = '|',
       this.nomoratm,
@@ -27,43 +24,40 @@ class Rekeningku {
       this.saldo,
       this.database}) {
     eraser();
-    print('${up * 27}');
-    print('$side   HALAMAN REKENING KU   $side');
-    print('${up * 27}');
+    print('${up * 23}');
+    print('$side   HALAMAN TAGIHAN   $side');
+    print('${up * 23}');
     print('');
   }
-
   void text1([int? a]) {
-    var noatm = insertspace(nomoratm);
-    print('Nama       : $nama');
-    print('Nomor ATM  : $noatm \n');
-    print('      Saldo = Rp $saldo\n');
-    print('Pilihan:');
-    print('1. Nabung');
-    print('2. Transfer');
-    print('3. Kembali \n');
+    print('''
+Silahkan melakukan pembayaran:
+1. Daftar mitra pembayaran
+2. Bayar 
+3. Kembali\n''');
     if (a == 1) {
-      print('"Masukkan angka 1 - 3"\n');
+      print('"Masukkan Angka 1-3"\n');
     }
-
     try {
       stdout.write(' MASUKKAN ANGKA PILIHAN : ');
       int choice = int.parse(stdin.readLineSync()!);
       if (choice == 1) {
-        print('ke halaman nabung');
+        print('ke daftar mitra');
       } else if (choice == 2) {
-        print('ke halaman transfer ');
+        print('ke pembayarn');
       } else if (choice == 3) {
-        var c = Core(nama, nomoratm,
+        var c = Payment(
+            nama: nama,
+            nomoratm: nomoratm,
             nohp: nohp,
             email: email,
             pin: pin,
             saldo: saldo,
             database: database);
-        c.run();
+        c.text1();
       }
     } catch (e) {
-      var b = Rekeningku(
+      var b = Bill(
           nomoratm: nomoratm,
           nama: nama,
           nohp: nohp,
@@ -74,4 +68,8 @@ class Rekeningku {
       b.text1(1);
     }
   }
+}
+
+void main(List<String> args) {
+  var a = Bill();
 }

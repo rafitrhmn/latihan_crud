@@ -1,13 +1,12 @@
-import 'dart:io';
+///halaman pembayaran
+//
 
-import 'core_page.dart';
+import 'bill.dart';
 import 'function.dart';
-import 'profile.dart';
+import 'dart:io';
+import 'core_page.dart';
 
-///halaman rekening ku
-///
-
-class Rekeningku {
+class Payment {
   String? nomoratm;
   String? nama;
   String? nohp;
@@ -16,7 +15,7 @@ class Rekeningku {
   String? saldo;
   Map? database;
 
-  Rekeningku(
+  Payment(
       {final up = '=',
       final side = '|',
       this.nomoratm,
@@ -27,32 +26,36 @@ class Rekeningku {
       this.saldo,
       this.database}) {
     eraser();
-    print('${up * 27}');
-    print('$side   HALAMAN REKENING KU   $side');
-    print('${up * 27}');
+    print('${up * 26}');
+    print('$side   HALAMAN PEMBAYARAN   $side');
+    print('${up * 26}');
     print('');
   }
-
   void text1([int? a]) {
-    var noatm = insertspace(nomoratm);
-    print('Nama       : $nama');
-    print('Nomor ATM  : $noatm \n');
-    print('      Saldo = Rp $saldo\n');
-    print('Pilihan:');
-    print('1. Nabung');
-    print('2. Transfer');
-    print('3. Kembali \n');
+    print('Pembayaran SUPER CEPAT dari Bank TENG INDONESIA\n');
+    print('''
+Pilih layanan Pembayaran kamu :
+1. Beli Pulsa
+2. Bayar Tagihan
+3. Kembali\n''');
     if (a == 1) {
-      print('"Masukkan angka 1 - 3"\n');
+      print('"Pilih layanan anda dengan memasukkan angka 1-3"\n');
     }
-
     try {
-      stdout.write(' MASUKKAN ANGKA PILIHAN : ');
+      stdout.write(' MASUKKAN ANGKA PILIHAN: ');
       int choice = int.parse(stdin.readLineSync()!);
       if (choice == 1) {
-        print('ke halaman nabung');
+        print('ke beli pulsa');
       } else if (choice == 2) {
-        print('ke halaman transfer ');
+        var b = Bill(
+            nomoratm: nomoratm,
+            nama: nama,
+            email: email,
+            nohp: nohp,
+            pin: pin,
+            saldo: saldo,
+            database: database);
+        b.text1();
       } else if (choice == 3) {
         var c = Core(nama, nomoratm,
             nohp: nohp,
@@ -63,7 +66,7 @@ class Rekeningku {
         c.run();
       }
     } catch (e) {
-      var b = Rekeningku(
+      var b = Payment(
           nomoratm: nomoratm,
           nama: nama,
           nohp: nohp,
@@ -74,4 +77,9 @@ class Rekeningku {
       b.text1(1);
     }
   }
+}
+
+void main() {
+  var a = Payment();
+  a.text1();
 }

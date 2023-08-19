@@ -1,5 +1,5 @@
 import 'halaman_depan.dart';
-import 'register.dart';
+import 'function.dart';
 import 'dart:io';
 import 'core_page.dart';
 
@@ -14,9 +14,9 @@ class Login {
     String j = i().replaceAll(' ', '');
     List<String> nomoratm = ['1234567', '7654321', j];
     List<String> saldo = ['1.000.000.000', '20.000.000', '000'];
+    //
     int jumlahnomoratm = nomoratm.length;
     Map<String, Map<String, String>> data = {};
-
     for (int i = 0; i < jumlahnomoratm; i++) {
       String nomoratm2 = nomoratm[i];
       String pin2 = pin[i];
@@ -39,21 +39,21 @@ class Login {
 
   void input({Map? data}) async {
     //function mencari user dari inputan nomor atm
-    String finduser(hhn, int parameter) {
-      if (data!.containsKey(hhn) && parameter == 1) {
-        var a = '${data[hhn]?['nama']}';
+    String finduser(ii, int parameter) {
+      if (data!.containsKey(ii) && parameter == 1) {
+        var a = '${data[ii]?['nama']}';
         return a;
-      } else if (data.containsKey(hhn) && parameter == 2) {
-        var b = '${data[hhn]?['nohp']}';
+      } else if (data.containsKey(ii) && parameter == 2) {
+        var b = '${data[ii]?['nohp']}';
         return b;
-      } else if (data.containsKey(hhn) && parameter == 3) {
-        var c = '${data[hhn]?['email']}';
+      } else if (data.containsKey(ii) && parameter == 3) {
+        var c = '${data[ii]?['email']}';
         return c;
-      } else if (data.containsKey(hhn) && parameter == 4) {
-        var d = '${data[hhn]?['pin']}';
+      } else if (data.containsKey(ii) && parameter == 4) {
+        var d = '${data[ii]?['pin']}';
         return d;
-      } else if (data.containsKey(hhn) && parameter == 5) {
-        var d = '${data[hhn]?['saldo']}';
+      } else if (data.containsKey(ii) && parameter == 5) {
+        var d = '${data[ii]?['saldo']}';
         return d;
       } else {
         return 'f';
@@ -67,7 +67,7 @@ class Login {
       int jumlahPercobaan = 0;
       int batasPercobaan = 5;
       bool berhasilmasuk = false;
-      String nama = '';
+      String nama3 = '';
       String noatm = '';
       String nohp = '';
       String email = '';
@@ -78,29 +78,28 @@ class Login {
         await second3();
         eraser();
         titlelogin();
-
         //input nomor atm dan pin
         print('   Masuk ke akun anda\n');
         stdout.write('Nomor ATM   : ');
-        String namak = stdin.readLineSync()!;
-        var ghj = namak.trim();
-        var hhn = ghj.replaceAll(' ', '');
+        String nama = stdin.readLineSync()!;
+        var i = nama.trim();
+        var ii = i.replaceAll(' ', '');
         stdout.write('PIN         : ');
-        String ikl = '';
+        String j = '';
         stdin.echoMode = false;
-        ikl = stdin.readLineSync()!;
-        var dfg = ikl.trim();
-        var sdf = dfg.replaceAll(' ', '');
+        j = stdin.readLineSync()!;
+        var j2 = j.trim();
+        var j3 = j2.replaceAll(' ', '');
         stdin.echoMode = true;
         stdout.write('\n');
 
         //verifikasi nomor atm adalah angka
         RegExp verifNomorAtm = RegExp(r'^\d{7}');
-        bool isverif = verifNomorAtm.hasMatch(hhn);
+        bool isverif = verifNomorAtm.hasMatch(ii);
         //verifikasi pin adalah angka
         RegExp verifPIN = RegExp(r'^\d{6}');
-        bool isverifpin = verifPIN.hasMatch(sdf);
-        bool gh = data![hhn]?["pin"] != null && data[hhn]?['pin'] == sdf;
+        bool isverifpin = verifPIN.hasMatch(j3);
+        bool gh = data![ii]?["pin"] != null && data[ii]?['pin'] == j3;
 
         if (isverif == false) {
           jumlahPercobaan++;
@@ -108,7 +107,7 @@ class Login {
           print('"nomor atm harus berupa 7 karakter angka"');
           print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (data.containsKey(hhn) == false) {
+        } else if (data.containsKey(ii) == false) {
           jumlahPercobaan++;
           print('');
           print('"nomor atm tidak ditemukan"');
@@ -126,15 +125,15 @@ class Login {
           print('"PIN salah"');
           print('"Sisa percobaan: ${batasPercobaan - jumlahPercobaan}"');
           print('');
-        } else if (data.containsKey(hhn) && gh) {
+        } else if (data.containsKey(ii) && gh) {
           berhasilmasuk = true;
-          String takename = finduser(hhn, 1);
-          String takenohp = finduser(hhn, 2);
-          String takeemail = finduser(hhn, 3);
-          String takepin = finduser(hhn, 4);
-          String takesaldo = finduser(hhn, 5);
-          nama = takename;
-          noatm = hhn;
+          String takename = finduser(ii, 1);
+          String takenohp = finduser(ii, 2);
+          String takeemail = finduser(ii, 3);
+          String takepin = finduser(ii, 4);
+          String takesaldo = finduser(ii, 5);
+          nama3 = takename;
+          noatm = ii;
           nohp = takenohp;
           email = takeemail;
           pin = takepin;
@@ -142,24 +141,24 @@ class Login {
         }
       }
       if (berhasilmasuk) {
-        print('akun ditemukan, masuk akun anda....');
-        var i =
-            Core(nama, noatm, nohp: nohp, email: email, pin: pin, saldo: saldo);
+        print('\nakun ditemukan, masuk akun anda....');
+        var i = Core(nama3, noatm,
+            nohp: nohp, email: email, pin: pin, saldo: saldo, database: data);
         i.run();
       } else {
         stdout.write('Anda melebihi batas percobaan. ganti PIN ATM ? (Y/N)');
         String answer = stdin.readLineSync()!;
         RegExp verif = RegExp(r'(Y|y|i?ya)');
         RegExp verif2 = RegExp(r'(N|n|tidak)');
-        var i = verif.hasMatch(answer);
-        var p = verif2.hasMatch(answer);
-        if (i == true) {
+        var k = verif.hasMatch(answer);
+        var l = verif2.hasMatch(answer);
+        if (k == true) {
           print('ke halaman login');
-        } else if (p == true) {
+        } else if (l == true) {
           proses();
         } else {
-          var p = RunFront();
-          p.run();
+          var m = Interface();
+          m.run(1);
         }
       }
     }
@@ -167,12 +166,6 @@ class Login {
     //dijalankan
     proses();
   }
-}
-
-//ketika salah nomor atm
-void slhatm() async {
-  await waiting();
-  eraser();
 }
 
 //judul login
@@ -183,8 +176,7 @@ void titlelogin({final jk = '=', final jl = '|'}) {
   print('');
 }
 
-//function loading 3 detik
-Future<dynamic> second3() async =>
-    await Future.delayed(Duration(milliseconds: 2500));
-
-void main() {}
+void main() {
+  var a = Login();
+  a.database();
+}
