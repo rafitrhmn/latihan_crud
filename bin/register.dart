@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'dart:core';
 import 'dart:math';
-import 'halaman_depan.dart';
+import 'page/front_page.dart';
 import 'login.dart';
-import 'function.dart';
+import 'function/function.dart';
 
 /// class daftar
 class Daftar {
@@ -304,7 +304,7 @@ extension MunculNoAtm on Daftar {
     } else if (hy == true) {
       runningRegis();
     } else {
-      var a = Interface();
+      var a = FrontPage();
       a.run(1);
     }
   }

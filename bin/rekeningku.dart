@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'core_page.dart';
-import 'function.dart';
+import 'function/function.dart';
 import 'profile.dart';
 
 ///halaman rekening ku

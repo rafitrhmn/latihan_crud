@@ -1,7 +1,7 @@
 /// halaman transfer
 ///
 
-import 'function.dart';
+import 'function/function.dart';
 import 'core_page.dart';
 import 'dart:io';
 

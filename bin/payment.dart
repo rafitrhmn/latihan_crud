@@ -2,7 +2,7 @@
 //
 
 import 'bill.dart';
-import 'function.dart';
+import 'function/function.dart';
 import 'dart:io';
 import 'core_page.dart';
 

@@ -1,11 +1,9 @@
-import 'halaman_depan.dart';
-import 'function.dart';
+import 'page/front_page.dart';
+import 'function/function.dart';
 
 void main() {
-  ///menjalankan program
+  // run the program
   eraser();
-  var depan = Interface();
-  depan.run(1);
+  var runn = FrontPage();
+  runn.run(1);
 }
-
-// cd belajar_2/bin/crud

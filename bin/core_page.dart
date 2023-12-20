@@ -6,10 +6,10 @@ import 'dart:io';
 import 'about.dart';
 import 'payment.dart';
 import 'profile.dart';
-import 'function.dart';
+import 'function/function.dart';
 import 'rekeningku.dart';
 import 'transfer.dart';
-import 'halaman_depan.dart';
+import 'page/front_page.dart';
 
 class Core {
   String? nama;
@@ -106,7 +106,7 @@ class Core {
             database: database);
         e.text1();
       } else if (choice == 6) {
-        var f = Interface();
+        var f = FrontPage();
         f.run(2, database);
       } else if (choice < 0 || choice >= 7) {
         run(1);

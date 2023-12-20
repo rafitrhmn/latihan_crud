@@ -1,6 +1,6 @@
 ///halaman nabung
 ///
-import 'function.dart';
+import 'function/function.dart';
 import 'dart:io';
 
 class Nabung {
@@ -38,32 +38,41 @@ class Nabung {
     RegExp regex = RegExp(r'^[\d.]+$');
     var scan = regex.hasMatch(iii);
     if (scan == true) {
+      print('');
       olah(iii);
     } else {
       print('ulang');
     }
-    // void olah() {
-    //   print('mengolah');
-    //   int jumalhkarakter = ii.length;
-    //   for (int i = 0; i < jumalhkarakter; i++) {
-    //     if (jumalhkarakter == 4) {
-    //       var a = '${ii.substring(0, 1)},${ii.substring(1)}';
-    //       print(a);
-    //     }
-    //   }
-    // }
   }
 
   void olah(String iii) {
     if (iii.length == 4) {
-      print('${iii.substring(0, 1)}.${iii.substring(1)}');
+      var a = '${iii.substring(0, 1)}.${iii.substring(1)}';
+      question(a);
     } else if (iii.length == 5) {
-      print('${iii.substring(0, 2)}.${iii.substring(2)}');
+      var a = '${iii.substring(0, 2)}.${iii.substring(2)}';
+      question(a);
     } else if (iii.length == 6) {
-      print('${iii.substring(0, 3)}.${iii.substring(3)}');
+      var a = '${iii.substring(0, 3)}.${iii.substring(3)}';
+      question(a);
     } else if (iii.length == 7) {
-      print(
-          '${iii.substring(0, 1)}.${iii.substring(1, 5)}.${iii.substring(4)}');
+      var a =
+          '${iii.substring(0, 1)}.${iii.substring(1, 5)}.${iii.substring(4)}';
+      question(a);
+    }
+  }
+
+  void question(String a) {
+    stdout.write('anda ingin menabung sebesar Rp $a ?(Y/N) ');
+    var b = stdin.readLineSync()!;
+    RegExp cek = RegExp(r'(Y|y|i?ya)');
+    RegExp cek2 = RegExp(r'(N|n|tidak)');
+    bool c = cek.hasMatch(b);
+    bool cc = cek2.hasMatch(b);
+    if (c == true) {
+      print('lanjut ke nota');
+    } else if (cc = true) {
+      print('ke halaman core page');
     }
   }
 }

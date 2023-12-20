@@ -1,7 +1,7 @@
 ///halaman bayar tagihan
 ///
 import 'payment.dart';
-import 'function.dart';
+import 'function/function.dart';
 import 'dart:io';
 
 class Bill {

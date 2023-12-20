@@ -1,5 +1,5 @@
 import 'core_page.dart';
-import 'function.dart';
+import 'function/function.dart';
 import 'dart:io';
 
 ///halaman Profile

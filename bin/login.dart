@@ -1,5 +1,5 @@
-import 'halaman_depan.dart';
-import 'function.dart';
+import 'page/front_page.dart';
+import 'function/function.dart';
 import 'dart:io';
 import 'core_page.dart';
 
@@ -157,7 +157,7 @@ class Login {
         } else if (l == true) {
           proses();
         } else {
-          var m = Interface();
+          var m = FrontPage();
           m.run(1);
         }
       }
