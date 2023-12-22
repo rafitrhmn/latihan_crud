@@ -4,7 +4,7 @@
 import 'dart:io';
 import '../function/function.dart';
 import '../login.dart';
-import '../register.dart';
+import 'register_page.dart';
 
 ///class front page
 class FrontPage {
@@ -70,7 +70,7 @@ $side Indonesia Maju 2024 ${' ' * 32} $side""");
   //input processing method
   void input([int? c, Map? database]) {
     var a = Login();
-    var b = Daftar();
+    var b = Register();
     try {
       print(' ');
       stdout.write('  MASUKKAN ANGKA PILIHAN ANDA : ');
@@ -99,7 +99,7 @@ $side Indonesia Maju 2024 ${' ' * 32} $side""");
     }
   }
 
-  //function mengulang inputan jika pengguna menginputkan Opening string
+  // method repeats input if user inputs Opening string
   void again(int d, [Map? database]) {
     if (d == 1) {
       var i = FrontPage()

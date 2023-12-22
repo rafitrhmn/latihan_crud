@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'dart:core';
 import 'dart:math';
-import 'page/front_page.dart';
-import 'login.dart';
-import 'function/function.dart';
+import 'front_page.dart';
+import '../login.dart';
+import '../function/function.dart';
 
-/// class daftar
-class Daftar {
-  //field class daftar
-  List<String> namaa = [];
-  List<String> noHp = [];
+/// class register
+class Register {
+  //field class register
+  List<String> name = [];
+  List<String> Handphone = [];
   var emaill = [];
   var list = [];
   var pinn = [];
 
-//function halaman pertama dari halaman daftar
+// The method that runs first in the list class
   void runningRegis() async {
     print(' ');
     print('${' ' * 3}Loading...');
@@ -25,16 +25,16 @@ class Daftar {
     inputName();
   }
 
-  //function input nama dan filter nama
+  //name input and name filter methods
   void inputName() {
-    stdout.write('Nama ${' ' * 11} : '); //input nama
+    stdout.write('Nama ${' ' * 11} : ');
     String nama = stdin.readLineSync()!;
     var i = nama.trim();
     var ii = i.replaceAll('  ', ' ');
     RegExp cek = RegExp(r'^[a-zA-Z\s]+$');
-    var cekName = cek.hasMatch(ii);
-    if (cekName == true) {
-      namaa.add(ii);
+    var CheckName = cek.hasMatch(ii);
+    if (CheckName == true) {
+      name.add(ii);
       saveInput.add(ii);
       inputNohp();
     } else {
@@ -42,14 +42,14 @@ class Daftar {
     }
   }
 
-  //function input no hp dan filter nomor hp
+  //handphone input and handphone filter methods
   void inputNohp() {
     stdout.write('Nomor HandPhone ${' ' * 1}: ');
     String hp = stdin.readLineSync()!;
-    RegExp cek = RegExp(r'^08\d{10,11}$');
-    var i = cek.hasMatch(shorten(hp));
+    RegExp CheckHandphone = RegExp(r'^08\d{10,11}$');
+    var i = CheckHandphone.hasMatch(shorten(hp));
     if (i == true) {
-      noHp.add(shorten(hp));
+      Handphone.add(shorten(hp));
       saveInput.add(shorten(hp));
       inputEmail();
     } else {
@@ -57,12 +57,12 @@ class Daftar {
     }
   }
 
-  //function input email dan verifikasi email
+  // email input method and email verification
   void inputEmail() {
     stdout.write('Email ${' ' * 11}: ');
     String emaik = stdin.readLineSync()!;
-    RegExp cek = RegExp(r"^[a-zA-Z0-9]+@gmail.com$");
-    var i = cek.hasMatch(shorten(emaik));
+    RegExp CheckEmail = RegExp(r"^[a-zA-Z0-9]+@gmail.com$");
+    var i = CheckEmail.hasMatch(shorten(emaik));
     if (i == true) {
       emaill.add(shorten(emaik));
       saveInput.add(shorten(emaik));
@@ -72,7 +72,7 @@ class Daftar {
     }
   }
 
-  //function input pin dan verifikasi pin
+// pin input method and pin verification
   void inputPin() {
     //input Pin
     stdout.write('PIN ${' ' * 13}: ');
@@ -91,7 +91,8 @@ class Daftar {
       stdin.echoMode = true;
       stdout.write('\n');
       if (pik == shorten(pin)) {
-        runMunculNoatm();
+        //to the method brings up the ATM number
+        RunATMNumberAppears();
       } else {
         eraser();
         tittleRegister();
@@ -114,7 +115,7 @@ class Daftar {
       }
     }
 
-    //verifikasi input pin
+    //verify pin input
     RegExp cek = RegExp(r'^\d{6}$');
     bool i = cek.hasMatch(shorten(pin));
     if (i == true) {
@@ -125,9 +126,9 @@ class Daftar {
     }
   }
 
-  //function jika input nama, no hp,email dan pin adalah salah
+//  methods if input name, cellphone number, email and pin are incorrect
   void wrong(int np) {
-    //inner fucntion jika input nama salah
+    //inner function if input name is wrong
     void wrongName() async {
       print(' ');
       print('${' ' * 3}"Gunakan Huruf untuk mengisi nama');
@@ -138,7 +139,7 @@ class Daftar {
       inputName();
     }
 
-    //inner function jika input nohp salah
+    //inner function if input nohp is wrong
     void wrongNohp() async {
       print(' ');
       fungNama();
@@ -154,7 +155,7 @@ ${' ' * 17}  dan berawalan 08''');
       inputNohp();
     }
 
-    //inner function jika input email salah
+    //inner function if email input is incorrect
     void wrongEmail() async {
       print(' ');
       fungNama();
@@ -170,7 +171,7 @@ ${' ' * 17}  dan berawalan 08''');
       inputEmail();
     }
 
-    //inner function jika input email salah
+    //inner function if the input pin is wrong
     void wrongPin() async {
       print(' ');
       fungNama();
@@ -188,7 +189,6 @@ ${' ' * 17}  dan berawalan 08''');
       inputPin();
     }
 
-    ///pertama kali dijalankan di function "salah".
     eraser();
     tittleRegister();
     if (np == 1) {
@@ -202,30 +202,30 @@ ${' ' * 17}  dan berawalan 08''');
     }
   }
 
-  //function nama yg ditambhakan jika input error
+  // Name field added if input error
   void fungNama() {
-    String ij = namaa[0];
+    String ij = name[0];
     print('Nama ${' ' * 11} : $ij');
   }
 
-  //function  nomor hp yg ditambahna jika input error
+  // Added cellphone number field if input error occurs
   void fungNo() {
-    String il = noHp[0];
+    String il = Handphone[0];
     print('Nomor Handphone ${' ' * 1}: $il');
   }
 
-  //function email yg ditambahkan jika input sesuatu error
+  //cellphone number field to be added if input error occurs
   void fungEmail() {
     String ik = emaill[0];
     print('Email ${' ' * 11}: $ik');
   }
 
-  //function  pin ditambahkan jika input error
+  //pin field added if input error
   void fungPin() {
     print('PIN ${' ' * 13}: ');
   }
 
-//menerima seluruh inputan
+// saveinput field to receive all input
   List<String> saveInput = [];
   void toLogin() {
     var a = Login();
@@ -238,8 +238,8 @@ ${' ' * 17}  dan berawalan 08''');
   }
 }
 
-//function tambahan. judul halaman daftar
-extension Title on Daftar {
+// additional methods of the register class
+extension Title on Register {
   void tittleRegister({final side_1 = '=', final side_2 = '|'}) {
     print('${side_1 * 22}');
     print('$side_2   HALAMAN DAFTAR   $side_2');
@@ -252,16 +252,31 @@ extension Title on Daftar {
 
 ///class mmunculkan no atm setelah daftar
 ///
-extension MunculNoAtm on Daftar {
-  //function title halaman muncul nomor atm
-  void garisAu({final side_1 = '=', final side_2 = '|'}) {
+extension ATMNumberAppears on Register {
+  //function muncul nomor atm
+  void RunATMNumberAppears() async {
+    print(' ');
+    print('${' ' * 3}Loading...');
+    await Future.delayed(Duration(milliseconds: 1500));
+    eraser();
+    TitleRegister();
+    print(' ');
+    print('Nomor ATM anda : ${gotATMnumber()}');
+    print(' ');
+    showThanks();
+    print('');
+    question();
+  }
+
+  //method title in register
+  void TitleRegister({final side_1 = '=', final side_2 = '|'}) {
     print('${side_1 * 22}');
     print('$side_2     NOMOR ATM${' ' * 6}$side_2');
     print('${side_1 * 22}');
   }
 
-  //function mendapat nomor atm
-  String dptacak() {
+  // method to get ATM number randomly
+  String gotATMnumber() {
     var acak = Random();
     var y = '';
     for (var i = 0; i < 9; i++) {
@@ -275,22 +290,7 @@ extension MunculNoAtm on Daftar {
     return y;
   }
 
-  //function muncul nomor atm
-  void runMunculNoatm() async {
-    print(' ');
-    print('${' ' * 3}Loading...');
-    await Future.delayed(Duration(milliseconds: 1500));
-    eraser();
-    garisAu();
-    print(' ');
-    print('Nomor ATM anda : ${dptacak()}');
-    print(' ');
-    showThanks();
-    print('');
-    question();
-  }
-
-  //function tanya ke pengguna mau ke halaman daftar?
+  // method of asking the user to return to the login page?
   void question() async {
     await waiting();
     stdout.write('Masuk ke akun anda ?? (Y/N) :');
@@ -310,13 +310,13 @@ extension MunculNoAtm on Daftar {
   }
 
   void showThanks() {
-    String i = namaa[0];
-    print('Terima kasih $i telah mendaftar di BANK TENG INDONESIA ');
+    String i = name[0];
+    print('Terima kasih $i telah menRegister di BANK TENG INDONESIA ');
   }
 }
 
 //fungsi pengecekan huruf saja
 void main() {
-  var b = Daftar();
+  var b = Register();
   b.runningRegis();
 }
