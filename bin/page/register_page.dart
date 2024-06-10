@@ -1,18 +1,21 @@
 import 'dart:io';
 import 'dart:core';
 import 'dart:math';
+import '../database/database_model.dart';
 import 'front_page.dart';
-import '../login.dart';
+import 'login_page.dart';
 import '../function/function.dart';
 
 /// class register
 class Register {
   //field class register
   List<String> name = [];
-  List<String> Handphone = [];
-  var emaill = [];
+  List<String> handphone = [];
+  var email = [];
   var list = [];
   var pinn = [];
+  //inisiasi variabel databsemodel
+  DatabaseModel database = DatabaseModel();
 
 // The method that runs first in the list class
   void runningRegis() async {
@@ -29,13 +32,13 @@ class Register {
   void inputName() {
     stdout.write('Nama ${' ' * 11} : ');
     String nama = stdin.readLineSync()!;
-    var i = nama.trim();
-    var ii = i.replaceAll('  ', ' ');
+    var trimnama = nama.trim();
+    var fiksnama = trimnama.replaceAll('  ', ' ');
     RegExp cek = RegExp(r'^[a-zA-Z\s]+$');
-    var CheckName = cek.hasMatch(ii);
-    if (CheckName == true) {
-      name.add(ii);
-      saveInput.add(ii);
+    var checkName = cek.hasMatch(fiksnama);
+    if (checkName == true) {
+      name.add(fiksnama);
+      saveInput.add(fiksnama);
       inputNohp();
     } else {
       wrong(1);
@@ -46,10 +49,10 @@ class Register {
   void inputNohp() {
     stdout.write('Nomor HandPhone ${' ' * 1}: ');
     String hp = stdin.readLineSync()!;
-    RegExp CheckHandphone = RegExp(r'^08\d{10,11}$');
-    var i = CheckHandphone.hasMatch(shorten(hp));
-    if (i == true) {
-      Handphone.add(shorten(hp));
+    RegExp cek = RegExp(r'^08\d{10,11}$');
+    var checkhp = cek.hasMatch(shorten(hp));
+    if (checkhp == true) {
+      handphone.add(shorten(hp));
       saveInput.add(shorten(hp));
       inputEmail();
     } else {
@@ -61,10 +64,10 @@ class Register {
   void inputEmail() {
     stdout.write('Email ${' ' * 11}: ');
     String emaik = stdin.readLineSync()!;
-    RegExp CheckEmail = RegExp(r"^[a-zA-Z0-9]+@gmail.com$");
-    var i = CheckEmail.hasMatch(shorten(emaik));
-    if (i == true) {
-      emaill.add(shorten(emaik));
+    RegExp cek = RegExp(r"^[a-zA-Z0-9]+@gmail.com$");
+    var checkemail = cek.hasMatch(shorten(emaik));
+    if (checkemail == true) {
+      email.add(shorten(emaik));
       saveInput.add(shorten(emaik));
       inputPin();
     } else {
@@ -92,7 +95,7 @@ class Register {
       stdout.write('\n');
       if (pik == shorten(pin)) {
         //to the method brings up the ATM number
-        RunATMNumberAppears();
+        runAtmNumbers();
       } else {
         eraser();
         tittleRegister();
@@ -117,8 +120,8 @@ class Register {
 
     //verify pin input
     RegExp cek = RegExp(r'^\d{6}$');
-    bool i = cek.hasMatch(shorten(pin));
-    if (i == true) {
+    bool checkpin = cek.hasMatch(shorten(pin));
+    if (checkpin == true) {
       saveInput.add(shorten(pin));
       verifpin();
     } else {
@@ -204,20 +207,20 @@ ${' ' * 17}  dan berawalan 08''');
 
   // Name field added if input error
   void fungNama() {
-    String ij = name[0];
-    print('Nama ${' ' * 11} : $ij');
+    String i = name[0];
+    print('Nama ${' ' * 11} : $i');
   }
 
   // Added cellphone number field if input error occurs
   void fungNo() {
-    String il = Handphone[0];
-    print('Nomor Handphone ${' ' * 1}: $il');
+    String i = handphone[0];
+    print('Nomor Handphone ${' ' * 1}: $i');
   }
 
   //cellphone number field to be added if input error occurs
   void fungEmail() {
-    String ik = emaill[0];
-    print('Email ${' ' * 11}: $ik');
+    String i = email[0];
+    print('Email ${' ' * 11}: $i');
   }
 
   //pin field added if input error
@@ -227,14 +230,19 @@ ${' ' * 17}  dan berawalan 08''');
 
 // saveinput field to receive all input
   List<String> saveInput = [];
-  void toLogin() {
-    var a = Login();
-    a.database(
-        q: saveInput[0],
-        r: saveInput[1],
-        s: saveInput[2],
-        t: saveInput[3],
-        u: saveInput[4]);
+  void tologin() {
+    DatabaseModel data = DatabaseModel();
+    data.register(
+        nama: saveInput[0],
+        handphone: saveInput[1],
+        email: saveInput[2],
+        pin: saveInput[3],
+        nomoratm: saveInput[4],
+        saldo: 0);
+    //to login
+    var dataa = data.getDataList();
+    Login login = Login(data: dataa);
+    login.runLogin();
   }
 }
 
@@ -250,26 +258,35 @@ extension Title on Register {
   }
 }
 
-///class mmunculkan no atm setelah daftar
+///class displays the ATM number after registering
 ///
 extension ATMNumberAppears on Register {
   //function muncul nomor atm
-  void RunATMNumberAppears() async {
+  void runAtmNumbers({bool? again, String? nmor}) async {
     print(' ');
     print('${' ' * 3}Loading...');
     await Future.delayed(Duration(milliseconds: 1500));
     eraser();
-    TitleRegister();
+    titleRegister();
     print(' ');
-    print('Nomor ATM anda : ${gotATMnumber()}');
+    if (again == true) {
+      print('Nomor ATM anda : $nmor');
+    } else {
+      print('Nomor ATM anda : ${gotATMnumber()}');
+    }
     print(' ');
     showThanks();
     print('');
+    if (again == true) {
+      print('');
+      print('"Pilih Y untuk iya dan Pilih N untuk tidak"');
+      print('');
+    }
     question();
   }
 
   //method title in register
-  void TitleRegister({final side_1 = '=', final side_2 = '|'}) {
+  void titleRegister({final side_1 = '=', final side_2 = '|'}) {
     print('${side_1 * 22}');
     print('$side_2     NOMOR ATM${' ' * 6}$side_2');
     print('${side_1 * 22}');
@@ -286,37 +303,41 @@ extension ATMNumberAppears on Register {
         y += acak.nextInt(10).toString();
       }
     }
-    saveInput.add(y);
+    final nomoratm = y.replaceAll(' ', '');
+    saveInput.add(nomoratm);
     return y;
   }
 
   // method of asking the user to return to the login page?
   void question() async {
     await waiting();
-    stdout.write('Masuk ke akun anda ?? (Y/N) :');
-    String nerima = stdin.readLineSync()!;
-    RegExp cek = RegExp(r'(Y|y|i?ya)');
-    RegExp cek2 = RegExp(r'(N|n|tidak)');
-    var h = cek.hasMatch(nerima);
-    var hy = cek2.hasMatch(nerima);
-    if (h == true) {
-      toLogin();
-    } else if (hy == true) {
-      runningRegis();
+    stdout.write('Masuk ke akun anda? (Y/N) :');
+    String input = stdin.readLineSync()!;
+    RegExp yes = RegExp(r'(Y|y|i?ya)');
+    RegExp no = RegExp(r'(N|n|tidak)');
+    var checkyes = yes.hasMatch(input);
+    var checkno = no.hasMatch(input);
+    if (checkyes == true) {
+      //newly registered balance o rupiah and go to the login page
+      database.register(saldo: 0);
+      tologin();
+    } else if (checkno == true) {
+      database.register(saldo: 0);
+      var tofront = FrontPage();
+      tofront.run(1);
     } else {
-      var a = FrontPage();
-      a.run(1);
+      database.register(saldo: 0);
+      var nomoratm = insertspace(saveInput[4]);
+      runAtmNumbers(
+        again: true,
+        nmor: nomoratm,
+      );
     }
   }
 
+  //method thank you
   void showThanks() {
     String i = name[0];
     print('Terima kasih $i telah menRegister di BANK TENG INDONESIA ');
   }
-}
-
-//fungsi pengecekan huruf saja
-void main() {
-  var b = Register();
-  b.runningRegis();
 }

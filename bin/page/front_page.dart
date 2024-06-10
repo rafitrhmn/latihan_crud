@@ -2,8 +2,9 @@
 ///
 ///
 import 'dart:io';
+import '../database/database_model.dart';
 import '../function/function.dart';
-import '../login.dart';
+import 'login_page.dart';
 import 'register_page.dart';
 
 ///class front page
@@ -16,14 +17,14 @@ class FrontPage {
   void run([int? a, Map? database]) async {
     if (a == 1) {
       title();
-      Opening();
+      opening();
       option();
       input(1);
     } else if (a == 2) {
       await waiting();
       eraser();
       title();
-      Opening();
+      opening();
       option();
       input(2, database);
     }
@@ -41,7 +42,7 @@ class FrontPage {
   }
 
   //method text opening
-  void Opening() {
+  void opening() {
     empty();
     print("""
 $side Assalamualaikum Warahmatullahi Wabarakatuh ${' ' * 9} $side
@@ -69,17 +70,22 @@ $side Indonesia Maju 2024 ${' ' * 32} $side""");
 
   //input processing method
   void input([int? c, Map? database]) {
-    var a = Login();
+    // var a = Login();
     var b = Register();
     try {
       print(' ');
       stdout.write('  MASUKKAN ANGKA PILIHAN ANDA : ');
       int milih = int.parse(stdin.readLineSync()!);
       if (milih == 1 && c == 1) {
-        a.database();
+        //initialize the databasemodel and go to the login page
+        DatabaseModel data = DatabaseModel();
+        var c = data.getDataList();
+        Login login = Login(data: c);
+        login.runLogin();
       } else if (milih == 1 && c == 2) {
-        a.input(data: database);
+        // a.input(data: database);
       } else if (milih == 2) {
+        //to the registration page
         b.runningRegis();
       } else if (milih <= 0 || milih >= 3 && c == 1) {
         eraser();
@@ -102,15 +108,17 @@ $side Indonesia Maju 2024 ${' ' * 32} $side""");
   // method repeats input if user inputs Opening string
   void again(int d, [Map? database]) {
     if (d == 1) {
+      // ignore: unused_local_variable
       var i = FrontPage()
         ..title()
-        ..Opening()
+        ..opening()
         ..option(1)
         ..input(1);
     } else if (d == 2) {
+      // ignore: unused_local_variable
       var ii = FrontPage()
         ..title()
-        ..Opening()
+        ..opening()
         ..option(1)
         ..input(2, database);
     }
@@ -118,7 +126,7 @@ $side Indonesia Maju 2024 ${' ' * 32} $side""");
 }
 
 void main() {
-  ///menjalankan function
-  var FrontPaa = FrontPage();
-  FrontPaa.title();
+  // ///menjalankan function
+  // var FrontPaa = FrontPage();
+  // FrontPaa.title();
 }
