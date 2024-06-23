@@ -18,6 +18,7 @@ class SendMoneyToTheSameBank extends Transfer {
       print('Input salah, coba lagi. Kesempatan tersisa: ${5 - attempt}');
     }
 
+    print(data);
     print('Transfer ke Bank Teng');
     print('Nomor ATM Pengirim    : ${insertspace(accountinfo['Nomor ATM']!)}');
     print('Nama Pengirim         : ${accountinfo['Nama']}');
@@ -26,27 +27,32 @@ class SendMoneyToTheSameBank extends Transfer {
       try {
         stdout.write('Nomor ATM Penerima    : ');
         int inputatm = int.parse(stdin.readLineSync()!);
-        print('berhasil');
+        String input = inputatm.toString();
+
+        // Periksa apakah nomor ATM penerima valid dan berbeda dari pengirim
+        var receiver = data.firstWhere(
+          (user) => user.containsKey(input),
+          orElse: () => {},
+        );
+
+        if (receiver.isEmpty) {
+          print('ATM tidak sama.');
+          throw Exception('ATM tidak sama.');
+        } else if (inputatm == int.parse(accountinfo['Nomor ATM']!)) {
+          print(
+              'Nomor ATM penerima tidak boleh sama dengan nomor ATM pengirim.');
+          throw Exception(
+              'Nomor ATM penerima tidak boleh sama dengan nomor ATM pengirim.');
+        } else if (receiver.isNotEmpty) {
+          print('atm ada');
+        }
       } catch (e) {
         attempt++;
-        runSendMoneySame(attempt: attempt);
+        print('gagal disni');
+        // runSendMoneySame(attempt: attempt);
       }
     } else {
       print('Kesempatan habis. Proses dihentikan.');
     }
-  }
-
-  void againinputuang({int? nmratmpenerima}) {
-    eraser();
-    print(up * 33);
-    print('$side   TRANSFER SESAMA BANK Teng   $side');
-    print(up * 33);
-    print('');
-    print('Masukkan Jumlah Uang dalam format angka.');
-    print('');
-    print('Transfer ke Bank Teng');
-    print('Nomor ATM Pengirim    : ${insertspace(accountinfo['Nomor ATM'])}');
-    print('Nama Pengirim         : ${accountinfo['Nama']}');
-    print('Nomor ATM Penerima    : $nmratmpenerima');
   }
 }
