@@ -2,8 +2,8 @@ import 'dart:io';
 
 import '../../database/database_model.dart';
 import '../../function/function.dart';
-import 'nota_add_saldo.dart';
-import 'rekeningku_page.dart';
+import '../notaPage/nota_add_saldo.dart';
+import '../homePage/rekeningku_page.dart';
 
 class Nabung extends Rekeningku {
   Nabung({required super.data, required super.accountinfo});
@@ -14,23 +14,26 @@ class Nabung extends Rekeningku {
     print('$side   HALAMAN NABUNG   $side');
     print('${up * 22}');
     print('');
-    print('Nama       : ${accountinfo['Nama']}'); //cehck
+    print('Nama       : ${accountinfo['Nama']} \n'); //cehck
     print('   Masukkan jumlah uang yang ingin ditabung :');
     stdout.write('Rp ');
     String? input = stdin.readLineSync(); // Membaca input dari pengguna
-    var i = input?.trim();
-    var ii = i?.replaceAll('.', '');
+    var ii = input?.replaceAll('.', '').replaceAll(' ', '');
 
     try {
       int addsaldo = int.parse(ii!);
       // print('Angka yang dimasukkan: $number');
       if (addsaldo >= 10000000) {
-        print('tidak bisa menabngu degna uang 10 juta');
+        print('\n"Tidak bisa menabung dengan uang 10 juta"');
+        await second3();
+        runNabung();
       } else if (addsaldo <= 9999999) {
         print('');
         confirm(addsaldo: addsaldo);
       }
     } catch (e) {
+      print('\n"Masukkan jumlah uang dengan angka"');
+      await waiting();
       runNabung();
     }
   }
@@ -51,6 +54,7 @@ class Nabung extends Rekeningku {
       Rekeningku rekeningku = Rekeningku(data: data, accountinfo: accountinfo);
       rekeningku.runRekeningku();
     } else {
+      ///spertinya dicode ini dicoba dlu
       waiting();
       Rekeningku rekeningku = Rekeningku(data: data, accountinfo: accountinfo);
       rekeningku.runRekeningku();

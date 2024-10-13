@@ -48,61 +48,61 @@
 //   }
 // }
 
-import 'dart:io';
+// import 'dart:io';
 
-import '../../function/function.dart';
-import 'transfer_page.dart';
+// import '../../function/function.dart';
+// import 'transfer_page.dart';
 
-class SendMoneyToTheSameBank extends Transfer {
-  SendMoneyToTheSameBank({required super.data, required super.accountinfo});
+// class SendMoneyToTheSameBank extends Transfer {
+//   SendMoneyToTheSameBank({required super.data, required super.accountinfo});
 
-  void runSendMoneySame({bool? inputatmx, String? a = ' '}) async {
-    eraser();
-    print(up * 33);
-    print('$side   TRANSFER SESAMA BANK Teng   $side');
-    print(up * 33);
-    print('');
-    if (inputatmx == false) {
-      print(a);
-      print('');
-    }
-    print('Transfer ke Bank Teng');
-    print('Nomor ATM Pengirim    : ${insertspace(accountinfo['Nomor ATM'])}');
-    print('Nama Pengirim         : ${accountinfo['Nama']}');
-    int? inputatm;
-    int attempt = 5;
+//   void runSendMoneySame({bool? inputatmx, String? a = ' '}) async {
+//     eraser();
+//     print(up * 33);
+//     print('$side   TRANSFER SESAMA BANK Teng   $side');
+//     print(up * 33);
+//     print('');
+//     if (inputatmx == false) {
+//       print(a);
+//       print('');
+//     }
+//     print('Transfer ke Bank Teng');
+//     print('Nomor ATM Pengirim    : ${insertspace(accountinfo['Nomor ATM'])}');
+//     print('Nama Pengirim         : ${accountinfo['Nama']}');
+//     int? inputatm;
+//     int attempt = 5;
 
-    if (inputatmx == true) {
-      while (inputatm == null && attempt > 0) {
-        stdout.write('Nomor ATM Penerima    : ');
-        try {
-          String inputSend = stdin.readLineSync()!;
-          String inputSend2 = inputSend.trim();
-          inputatm = int.parse(inputSend2);
-          verifnoatmsend(noatmSend: inputatm);
+//     if (inputatmx == true) {
+//       while (inputatm == null && attempt > 0) {
+//         stdout.write('Nomor ATM Penerima    : ');
+//         try {
+//           String inputSend = stdin.readLineSync()!;
+//           String inputSend2 = inputSend.trim();
+//           inputatm = int.parse(inputSend2);
+//           verifnoatmsend(noatmSend: inputatm);
 
-          // inputatm = int.parse(stdin.readLineSync()!);
-          // String noatm2 = inputatm.toString();
-          // print(noatm2);
-          // RegExp verifNoatm = RegExp(r'^\d{7}');
-          // bool isverifNoAtm = verifNoatm.hasMatch(noatm2);
-          // if (isverifNoAtm == true) {
-          //   print('no atm yg ingin dikirim : $noatm2');
-          // } else if (isverifNoAtm == false) {
-          //   attempt--;
-          //   var a =
-          //       'Nomor ATM yang dimasukkan tidak valid (sisa percobaan $attempt kali lagi).';
-          //   runSendMoneySame(inputatmx: false, a: a);
-          // }
-        } catch (e) {
-          attempt--;
-          var a =
-              'Nomor ATM yang dimasukkan tidak valid (sisa percobaan $attempt kali lagi).';
-          runSendMoneySame(inputatmx: false, a: a);
-        }
-      }
-    }
-  }
+//           // inputatm = int.parse(stdin.readLineSync()!);
+//           // String noatm2 = inputatm.toString();
+//           // print(noatm2);
+//           // RegExp verifNoatm = RegExp(r'^\d{7}');
+//           // bool isverifNoAtm = verifNoatm.hasMatch(noatm2);
+//           // if (isverifNoAtm == true) {
+//           //   print('no atm yg ingin dikirim : $noatm2');
+//           // } else if (isverifNoAtm == false) {
+//           //   attempt--;
+//           //   var a =
+//           //       'Nomor ATM yang dimasukkan tidak valid (sisa percobaan $attempt kali lagi).';
+//           //   runSendMoneySame(inputatmx: false, a: a);
+//           // }
+//         } catch (e) {
+//           attempt--;
+//           var a =
+//               'Nomor ATM yang dimasukkan tidak valid (sisa percobaan $attempt kali lagi).';
+//           runSendMoneySame(inputatmx: false, a: a);
+//         }
+//       }
+//     }
+//   }
 
-  void verifnoatmsend({int? noatmSend}) {}
-}
+//   void verifnoatmsend({int? noatmSend}) {}
+// }

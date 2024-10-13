@@ -2,7 +2,7 @@ import 'dart:io';
 
 import '../../function/function.dart';
 import 'home_page.dart';
-import 'nabung_page.dart';
+import '../nabungPage/nabung_page.dart';
 import 'transfer_page.dart';
 
 class Rekeningku extends HomePage {

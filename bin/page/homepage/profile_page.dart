@@ -29,18 +29,13 @@ class Profile extends HomePage {
     ///kembali ke halaman sebelunya atau ini
     await waiting();
     stdout.write('Kembali ke halaman sebelumnya ? (Y/N) :');
-    String input = stdin.readLineSync()!;
-    RegExp yes = RegExp(r'(Y|y|i?ya)');
-    RegExp no = RegExp(r'(N|n|tidak)');
-    var checkyes = yes.hasMatch(input);
-    var checkno = no.hasMatch(input);
-    if (checkyes == true) {
-      var a = HomePage(data: data, accountinfo: accountinfo);
+    String input = stdin.readLineSync()!.trim();
+    if (input == 'Y' || input == 'y') {
+      var a = HomePage(
+          data: data, accountinfo: accountinfo); // Asumsikan ada objek HomePage
       a.runHomePage();
-
-      //cek apakah nomor atm dan pin ada di homepage
-    } else if (checkno == true) {
-      runProfile();
+    } else if (input == 'N' || input == 'n') {
+      runProfile(); // Asumsikan ada fungsi runProfile()
     } else {
       runProfile(again: false);
     }

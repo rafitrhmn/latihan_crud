@@ -2,6 +2,8 @@ import 'dart:io';
 
 import '../../function/function.dart';
 import 'home_page.dart';
+import 'pulsa.dart';
+import '../billPage/payBills_page.dart';
 
 class Pembayaran extends HomePage {
   Pembayaran({required super.data, required super.accountinfo});
@@ -22,11 +24,14 @@ Pilih layanan Pembayaran kamu :
       stdout.write(' MASUKKAN ANGKA PILIHAN : ');
       int choice = int.parse(stdin.readLineSync()!);
       if (choice == 1) {
-        print('ke halaman beli pulsa');
+        Pulsa pulsa = Pulsa(data: data, accountinfo: accountinfo);
+        pulsa.runPulsa();
       } else if (choice == 2) {
-        print('ke halaman bayar tagihan ');
+        PayBills tagihan = PayBills(data: data, accountinfo: accountinfo);
+        tagihan.runPayBills();
       } else if (choice == 3) {
         print('kembali ke halaman sebelumnya');
+        runHomePage();
       }
     } catch (e) {}
   }

@@ -1,7 +1,7 @@
 import 'dart:io';
 import '../database/database_model.dart';
 import '../function/function.dart';
-import 'homepage/home_page.dart';
+import 'homePage/home_page.dart';
 
 class Login {
   // initialize a variable named data
@@ -19,7 +19,7 @@ class Login {
       eraser();
       titlelogin();
       print('');
-      // print('$data');
+
       print('   Masuk ke akun anda\n');
 
       //input Nomor ATM
@@ -38,41 +38,41 @@ class Login {
       stdin.echoMode = true;
       stdout.write('\n');
 
-      // verify the ATM Number is a 7 character number
-      RegExp verifNomorAtm = RegExp(r'^\d{7}');
-      bool isverifNoAtm = verifNomorAtm.hasMatch(fiksNomoratm);
-      // verify the pin is a 6 character number
-      RegExp verifPIN = RegExp(r'^\d{6}');
-      bool isverifpin = verifPIN.hasMatch(fiksPin);
+      // // verify the ATM Number is a 7 character number
+      // RegExp verifNomorAtm = RegExp(r'^\d{7}');
+      // bool isverifNoAtm = verifNomorAtm.hasMatch(fiksNomoratm);
+      // // verify the pin is a 6 character number
+      // RegExp verifPIN = RegExp(r'^\d{6}');
+      // bool isverifpin = verifPIN.hasMatch(fiksPin);
 
-      if (!isverifNoAtm) {
-        attempt++;
-        if (attempt < 5) {
-          print('');
-          print('Gunakan angka sebagai nomor ATM (7 karakter).');
-          continue;
-        } else if (attempt == 5) {
-          print('');
-          forgotpin(
-            nomoratm: fiksNomoratm,
-          );
-          break;
-        }
-      }
-      if (!isverifpin) {
-        attempt++;
-        if (attempt < 5) {
-          print('');
-          print('Gunakan 6 karakter angka sebagai PIN.');
-          continue;
-        } else if (attempt == 5) {
-          print('');
-          forgotpin(
-            nomoratm: fiksNomoratm,
-          );
-          break;
-        }
-      }
+      // if (!isverifNoAtm) {
+      //   attempt++;
+      //   if (attempt < 5) {
+      //     print('');
+      //     print('Gunakan angka sebagai nomor ATM (7 karakter).');
+      //     continue;
+      //   } else if (attempt == 5) {
+      //     print('');
+      //     forgotpin(
+      //       nomoratm: fiksNomoratm,
+      //     );
+      //     break;
+      //   }
+      // }
+      // if (!isverifpin) {
+      //   attempt++;
+      //   if (attempt < 5) {
+      //     print('');
+      //     print('Gunakan 6 karakter angka sebagai PIN.');
+      //     continue;
+      //   } else if (attempt == 5) {
+      //     print('');
+      //     forgotpin(
+      //       nomoratm: fiksNomoratm,
+      //     );
+      //     break;
+      //   }
+      // }
 
       // verify that the ATM number and pin input are in the database
       var matchedUser = data.firstWhere(

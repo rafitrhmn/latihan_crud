@@ -68,3 +68,19 @@ String processingInput(int jumlah) {
     return 'a';
   }
 }
+
+//merubah data ke bentuk map dynamic dgn key utama diubah ke key baru.
+List<Map<String, dynamic>> convertData(
+    List<Map<int, Map<String, dynamic>>> data) {
+  return data.map((user) {
+    // Mendapatkan key utama (nomor ATM) dan data pengguna
+    var key = user.keys.first;
+    var userData = user[key];
+
+    // Membuat map baru dengan key 'NomorATM'
+    return {
+      'NomorATM': key.toString(), // Mengonversi key ke string
+      ...userData!, // Menambahkan data pengguna lainnya
+    };
+  }).toList();
+}

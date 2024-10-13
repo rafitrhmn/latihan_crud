@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import '../../function/function.dart';
-import 'nabung_page.dart';
+import '../nabungPage/nabung_page.dart';
 
 class Nota extends Nabung {
   int nabung;
@@ -37,15 +37,10 @@ class Nota extends Nabung {
     await waiting();
     print('');
     stdout.write('Kembali ke halaman sebelumnya ? (Y/N) :');
-    String input = stdin.readLineSync()!;
-    RegExp yes = RegExp(r'(Y|y|i?ya)');
-    RegExp no = RegExp(r'(N|n|tidak)');
-    var checkyes = yes.hasMatch(input);
-    var checkno = no.hasMatch(input);
-    if (checkyes == true) {
+    String input = stdin.readLineSync()!.trim();
+    if (input == 'Y' || input == 'y') {
       runHomePage();
-      //cek apakah nomor atm dan pin ada di homepage
-    } else if (checkno == true) {
+    } else if (input == 'N' || input == 'n') {
       runNota();
     } else {
       runNota(again: false);

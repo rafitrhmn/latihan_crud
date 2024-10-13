@@ -26,6 +26,7 @@ class HomePage {
     titlepengguna();
     print("Nama Pengguna : ${accountinfo['Nama']}");
     print("Nomor Rekening : ${insertspace(accountinfo['Nomor ATM'])}");
+    print("Nomor Rekening : ${accountinfo['Saldo']}");
     print('');
     print('BANK TENG INDONESIA');
     print('Bank Pelayan masyarakat Indonesia untuk indonesia maju 2024');
