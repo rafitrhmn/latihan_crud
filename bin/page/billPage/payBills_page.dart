@@ -15,7 +15,13 @@ class PayBills extends Pembayaran {
     print('Bayar Tagihan Mu disini');
     print('Pilih Tagihan Mu : ');
     print('1. Listrik Pascabayar');
-    print('2. Air');
+    print('2. Air\b');
+    if (warning == false) {
+      print(
+          '"Masukkan angka 1 untuk Bayar tagihan listrik pascabayar, angka 2 untuk tagihan air, dan angka 3 untuk kembali "');
+      await waiting();
+      print('');
+    }
     try {
       stdout.write('MASUKKAN ANGKA PILIHAN : ');
       int choice = int.parse(stdin.readLineSync()!);
@@ -24,11 +30,11 @@ class PayBills extends Pembayaran {
       } else if (choice == 2) {
         runPayBills2('Air');
       } else {
-        // runTransfer();
+        runPayBills(warning: false);
       }
     } catch (e) {
       //ke function tranfer
-      // runTransfer();
+      runPayBills(warning: false);
     }
   }
 
@@ -49,21 +55,17 @@ class PayBills extends Pembayaran {
     stdout.write('Masukkan Nomor Tagihan $billName   : ');
     String invoice =
         stdin.readLineSync()!.replaceAll(' ', '').replaceAll('.', '');
-    int? invoice2 = int.tryParse(invoice);
-    // if (){
 
-    // }
-
-    // if (billName == 'Listrik' && nmrTagihan.length == 11 ||
-    //     nmrTagihan.length == 12) {
-    //   jmlByrTghn(billName, nmrTagihan);
-    // } else if (billName == 'Air' && nmrTagihan.length == 6) {
-    // } else {
-    //   runPayBills2(bayar, warning: false);
-    // }
+    if (billName == 'Listrik' && invoice.length == 11 || invoice.length == 12) {
+      jmlByrTghn(billName, invoice);
+    } else if (billName == 'Air' && invoice.length == 6) {
+      jmlByrTghn(billName, invoice);
+    } else {
+      runPayBills2(billName, warning: false);
+    }
   }
 
-  void jmlByrTghn(String bayar, String nmrTagihan, {int? warning}) {
+  void jmlByrTghn(String bayar, String invoice, {int? warning}) {
     eraser();
     print(up * 21);
     print('$side   Bayar Tagihan   $side');
@@ -75,10 +77,12 @@ class PayBills extends Pembayaran {
       print('Jumlah tagihan minumum Rp10.000');
     } else if (warning == 3) {
       print('Jumlah tagihan maksimaum Rp1.000.000');
+    } else if (warning == 4) {
+      print('Saldo tidak mencukupi');
     }
     print('Bayar Tagihan $bayar');
-    print('Masukkan Nomor Tagihan $bayar        : $nmrTagihan');
-    stdout.write('Masukkan Jumlah Tagihan $bayar   : ');
+    print('Masukkan Nomor Tagihan $bayar        : $invoice');
+    stdout.write('Masukkan Jumlah Tagihan $bayar       : ');
     String jmlTghn =
         stdin.readLineSync()!.replaceAll(' ', '').replaceAll('.', '');
 
@@ -86,19 +90,22 @@ class PayBills extends Pembayaran {
         int.tryParse(jmlTghn); // Mengubah string menjadi integer
 
     if (jumlahTagihan == null) {
-      jmlByrTghn(bayar, nmrTagihan, warning: 1); // Ulangi input
+      jmlByrTghn(bayar, invoice, warning: 1); // Ulangi input
     } else if (jumlahTagihan < 10000) {
-      jmlByrTghn(bayar, nmrTagihan, warning: 2); // Ulangi input
+      jmlByrTghn(bayar, invoice, warning: 2); // Ulangi input
     } else if (jumlahTagihan > 1000000) {
-      jmlByrTghn(bayar, nmrTagihan, warning: 3); // Ulangi input
+      jmlByrTghn(bayar, invoice, warning: 3); // Ulangi input
+    } else if (jumlahTagihan > accountinfo['Saldo']) {
+      jmlByrTghn(bayar, invoice, warning: 4);
     } else {
       var jumlahtagihanRp = processingInput(jumlahTagihan);
       stdout.write(
-          'anda ingin membayar tagihan $bayar ke nomor tagihan $nmrTagihan sebesar Rp $jumlahtagihanRp ? (Y/N)');
+          'anda ingin membayar tagihan $bayar ke nomor tagihan $invoice sebesar Rp $jumlahtagihanRp ? (Y/N)');
       String input = stdin.readLineSync()!.trim();
       if (input == 'Y' || input == 'y') {
         accountinfo['Saldo'] -= jumlahTagihan;
         //ke nota
+        notaTagihan(bayar, invoice, jumlahTagihan);
       } else if (input == 'N' || input == 'n') {
         waiting();
         Rekeningku rekeningku =
@@ -125,7 +132,7 @@ class PayBills extends Pembayaran {
       await waiting();
     }
     await waiting();
-    // kembali(nohp, layanan, jmlPulsa);
+    kembali(bayar, nmrtagihan, jumlahTagihan);
   }
 
   void kembali(
